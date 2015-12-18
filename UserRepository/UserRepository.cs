@@ -8,12 +8,12 @@ namespace Repositories
 {
     public class UserRepository
     {
-        public Användare GetFirst()
+        public Users GetFirst()
         {
 
             using (var context = new datebookEntities())
             {
-                return context.Användare.FirstOrDefault();
+                return context.Users.FirstOrDefault();
             }
 
         }

@@ -12,22 +12,22 @@ namespace Repositories
     using System;
     using System.Collections.Generic;
     
-    public partial class Poster
+    public partial class Posts
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Poster()
+        public Posts()
         {
-            this.Användare2 = new HashSet<Användare>();
+            this.Users2 = new HashSet<Users>();
         }
     
-        public int PostID { get; set; }
-        public Nullable<int> PostAv { get; set; }
-        public Nullable<int> PostTill { get; set; }
-        public string Meddelande { get; set; }
+        public int PostId { get; set; }
+        public Nullable<int> PostBy { get; set; }
+        public Nullable<int> PostTo { get; set; }
+        public string Post { get; set; }
     
-        public virtual Användare Användare { get; set; }
-        public virtual Användare Användare1 { get; set; }
+        public virtual Users Users { get; set; }
+        public virtual Users Users1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Användare> Användare2 { get; set; }
+        public virtual ICollection<Users> Users2 { get; set; }
     }
 }

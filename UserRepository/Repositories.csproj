@@ -50,11 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Användare.cs">
-      <DependentUpon>datebookModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="RegisterRepository.cs" />
-    <Compile Include="UserRepository.cs" />
     <Compile Include="datebookModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -70,19 +65,23 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>datebookModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Poster.cs">
+    <Compile Include="IndexRepository.cs" />
+    <Compile Include="Posts.cs">
       <DependentUpon>datebookModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="RegisterRepository.cs" />
+    <Compile Include="UserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Users.cs">
+      <DependentUpon>datebookModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="datebookModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>datebookModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
     <None Include="datebookModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>datebookModel.edmx</DependentUpon>

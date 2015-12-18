@@ -2,7 +2,59 @@
     ViewBag.Title = "Index";
 }
 
-<div class="jumbotron">
-    @Html.ActionLink("Till användare", "Index", "User")
-</div>
+@model datebook.Models.IndexModel
+@using Repositories
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title -Datebook.com</title>
+    <link href="@Url.Content("~/Content/main.css")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <h2 class="hTaggar">datebook.com</h2>
+            <div id="Loggin">
+                @using (Html.BeginForm("Profile", "Home", FormMethod.Post)) { 
+                @Html.TextBoxFor(x => x.Username, "Username")
+                @Html.ValidationMessageFor(x => x.Username)
+                @Html.PasswordFor(x => x.Password, "Password")
+                @Html.ValidationMessageFor(x => x.Password)
+                <input type="submit" value="Log in" id="SubmitBtn" />
+                @Html.Raw(TempData["loginAlert"])
+
+                @Html.Raw(TempData["alertSuccessfulRegister"])
+                }
+            </div>
+        </div>
+        <div id="divPicture">
+            <img src="@Url.Content("~/pictures/couple.jpg")" id="couplepic" />
+            <div id="Create">
+                <h1> Join now!</h1>
+                <form id="regForm">
+                    <input type="text" name="firstname" value="Firstname"><br>
+                    <input type="text" name="username" value="Username"><br>
+                    <select>
+                        <option value="Female">Female</option>
+                        <option value="Male">Male</option>
+                        <option value="Other">Other</option>
+                    </select><br />
+                    <input type="text" name="age" value="Age"><br>
+                    <input type="text" name="password" value="Password"><br>
+                    <input type="text" name="passwordAgain" value="Password again"><br>
+                    <br />
+                    <input type="button" value="Register">
+                </form>
+            </div>
+            <div id="pc"><img src="@Url.Content("~/pictures/pris.jpg")"><p>Cilla Chan, 30</p></div>
+            <div id="mz"><img src="@Url.Content("~/pictures/Mark.jpg")"><p>Zack Markenberg, 31</p></div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
 

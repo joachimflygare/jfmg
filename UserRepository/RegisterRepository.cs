@@ -6,17 +6,22 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    class RegisterRepository
+    public class RegisterRepository
     {
-        public static void Register(string firstname, string username, string gender, int age, string password, int visible)
+        public static void Register(string firstname, string username, string gender, int age, string password)
         {
             using (var context = new datebookEntities())
             {
-                Användare newUser = new Användare
+                Users newUser = new Users
                 {
-                    Namn = firstname,
-                    
-                 
+                    Name = firstname,
+                    Username = username,
+                    Gender = gender,
+                    Age = age,
+                    Passsword = password,
+                };
+                context.Users.Add(newUser);
+                context.SaveChanges();
             }
         }
     }

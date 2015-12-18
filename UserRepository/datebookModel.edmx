@@ -5,117 +5,144 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="datebookModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Användare">
+        <EntityType Name="Friends">
           <Key>
-            <PropertyRef Name="AnvändarID" />
+            <PropertyRef Name="NameId" />
+            <PropertyRef Name="FriendId" />
           </Key>
-          <Property Name="AnvändarID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Namn" Type="nvarchar" MaxLength="150" />
-          <Property Name="Kön" Type="nvarchar" MaxLength="6" />
+          <Property Name="NameId" Type="int" Nullable="false" />
+          <Property Name="FriendId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Post_User">
+          <Key>
+            <PropertyRef Name="PostId" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="PostId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Posts">
+          <Key>
+            <PropertyRef Name="PostId" />
+          </Key>
+          <Property Name="PostId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PostBy" Type="int" />
+          <Property Name="PostTo" Type="int" />
+          <Property Name="Post" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" />
+          <Property Name="Username" Type="nvarchar" MaxLength="150" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="10" />
+          <Property Name="Age" Type="int" />
           <Property Name="Info" Type="nvarchar" MaxLength="400" />
-          <Property Name="Vän" Type="int" />
-          <Property Name="Synlig" Type="bit" />
+          <Property Name="Visible" Type="bit" />
+          <Property Name="Passsword" Type="nvarchar" MaxLength="40" />
         </EntityType>
-        <EntityType Name="Poster">
-          <Key>
-            <PropertyRef Name="PostID" />
-          </Key>
-          <Property Name="PostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PostAv" Type="int" />
-          <Property Name="PostTill" Type="int" />
-          <Property Name="Meddelande" Type="nvarchar" MaxLength="100" />
-        </EntityType>
-        <EntityType Name="Poster_Användare">
-          <Key>
-            <PropertyRef Name="PostID" />
-            <PropertyRef Name="AnvändarID" />
-          </Key>
-          <Property Name="PostID" Type="int" Nullable="false" />
-          <Property Name="AnvändarID" Type="int" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_Användare_Vän">
-          <End Role="Användare" Type="Self.Användare" Multiplicity="0..1" />
-          <End Role="Användare1" Type="Self.Användare" Multiplicity="*" />
+        <Association Name="FK_Friends_FriendId">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Friends" Type="Self.Friends" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Användare">
-              <PropertyRef Name="AnvändarID" />
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="Användare1">
-              <PropertyRef Name="Vän" />
+            <Dependent Role="Friends">
+              <PropertyRef Name="FriendId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_AnvändarePoster_Användare">
-          <End Role="Användare" Type="Self.Användare" Multiplicity="1" />
-          <End Role="Poster_Användare" Type="Self.Poster_Användare" Multiplicity="*" />
+        <Association Name="FK_Friends_NameId">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Friends" Type="Self.Friends" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Användare">
-              <PropertyRef Name="AnvändarID" />
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="Poster_Användare">
-              <PropertyRef Name="AnvändarID" />
+            <Dependent Role="Friends">
+              <PropertyRef Name="NameId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PostatAv">
-          <End Role="Användare" Type="Self.Användare" Multiplicity="0..1" />
-          <End Role="Poster" Type="Self.Poster" Multiplicity="*" />
+        <Association Name="FK_Post_User_PostId">
+          <End Role="Posts" Type="Self.Posts" Multiplicity="1" />
+          <End Role="Post_User" Type="Self.Post_User" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Användare">
-              <PropertyRef Name="AnvändarID" />
+            <Principal Role="Posts">
+              <PropertyRef Name="PostId" />
             </Principal>
-            <Dependent Role="Poster">
-              <PropertyRef Name="PostAv" />
+            <Dependent Role="Post_User">
+              <PropertyRef Name="PostId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PostatTill">
-          <End Role="Användare" Type="Self.Användare" Multiplicity="0..1" />
-          <End Role="Poster" Type="Self.Poster" Multiplicity="*" />
+        <Association Name="FK_Post_User_Userid">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Post_User" Type="Self.Post_User" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Användare">
-              <PropertyRef Name="AnvändarID" />
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="Poster">
-              <PropertyRef Name="PostTill" />
+            <Dependent Role="Post_User">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PosterAnvändare_Poster">
-          <End Role="Poster" Type="Self.Poster" Multiplicity="1" />
-          <End Role="Poster_Användare" Type="Self.Poster_Användare" Multiplicity="*" />
+        <Association Name="FK_Posts_PostBy">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Posts" Type="Self.Posts" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Poster">
-              <PropertyRef Name="PostID" />
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="Poster_Användare">
-              <PropertyRef Name="PostID" />
+            <Dependent Role="Posts">
+              <PropertyRef Name="PostBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Posts_PostTo">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Posts" Type="Self.Posts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Posts">
+              <PropertyRef Name="PostTo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="datebookModelStoreContainer">
-          <EntitySet Name="Användare" EntityType="Self.Användare" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Poster" EntityType="Self.Poster" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Poster_Användare" EntityType="Self.Poster_Användare" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Användare_Vän" Association="Self.FK_Användare_Vän">
-            <End Role="Användare" EntitySet="Användare" />
-            <End Role="Användare1" EntitySet="Användare" />
+          <EntitySet Name="Friends" EntityType="Self.Friends" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Post_User" EntityType="Self.Post_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Posts" EntityType="Self.Posts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Friends_FriendId" Association="Self.FK_Friends_FriendId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Friends" EntitySet="Friends" />
           </AssociationSet>
-          <AssociationSet Name="FK_AnvändarePoster_Användare" Association="Self.FK_AnvändarePoster_Användare">
-            <End Role="Användare" EntitySet="Användare" />
-            <End Role="Poster_Användare" EntitySet="Poster_Användare" />
+          <AssociationSet Name="FK_Friends_NameId" Association="Self.FK_Friends_NameId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Friends" EntitySet="Friends" />
           </AssociationSet>
-          <AssociationSet Name="FK_PostatAv" Association="Self.FK_PostatAv">
-            <End Role="Användare" EntitySet="Användare" />
-            <End Role="Poster" EntitySet="Poster" />
+          <AssociationSet Name="FK_Post_User_PostId" Association="Self.FK_Post_User_PostId">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="Post_User" EntitySet="Post_User" />
           </AssociationSet>
-          <AssociationSet Name="FK_PostatTill" Association="Self.FK_PostatTill">
-            <End Role="Användare" EntitySet="Användare" />
-            <End Role="Poster" EntitySet="Poster" />
+          <AssociationSet Name="FK_Post_User_Userid" Association="Self.FK_Post_User_Userid">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Post_User" EntitySet="Post_User" />
           </AssociationSet>
-          <AssociationSet Name="FK_PosterAnvändare_Poster" Association="Self.FK_PosterAnvändare_Poster">
-            <End Role="Poster" EntitySet="Poster" />
-            <End Role="Poster_Användare" EntitySet="Poster_Användare" />
+          <AssociationSet Name="FK_Posts_PostBy" Association="Self.FK_Posts_PostBy">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Posts" EntitySet="Posts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Posts_PostTo" Association="Self.FK_Posts_PostTo">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Posts" EntitySet="Posts" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -123,92 +150,86 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="datebookModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Användare">
+        <EntityType Name="Posts">
           <Key>
-            <PropertyRef Name="AnvändarID" />
+            <PropertyRef Name="PostId" />
           </Key>
-          <Property Name="AnvändarID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Namn" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Kön" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="PostId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PostBy" Type="Int32" />
+          <Property Name="PostTo" Type="Int32" />
+          <Property Name="Post" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Posts_PostBy" FromRole="Posts" ToRole="Users" />
+          <NavigationProperty Name="Users1" Relationship="Self.FK_Posts_PostTo" FromRole="Posts" ToRole="Users" />
+          <NavigationProperty Name="Users2" Relationship="Self.Post_User" FromRole="Posts" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Age" Type="Int32" />
           <Property Name="Info" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
-          <Property Name="Vän" Type="Int32" />
-          <Property Name="Synlig" Type="Boolean" />
-          <NavigationProperty Name="Användare1" Relationship="Self.FK_Användare_Vän" FromRole="Användare" ToRole="Användare1" />
-          <NavigationProperty Name="Användare2" Relationship="Self.FK_Användare_Vän" FromRole="Användare1" ToRole="Användare" />
-          <NavigationProperty Name="Poster" Relationship="Self.FK_PostatAv" FromRole="Användare" ToRole="Poster" />
-          <NavigationProperty Name="Poster1" Relationship="Self.FK_PostatTill" FromRole="Användare" ToRole="Poster" />
-          <NavigationProperty Name="Poster2" Relationship="Self.Poster_Användare" FromRole="Användare" ToRole="Poster" />
+          <Property Name="Visible" Type="Boolean" />
+          <Property Name="Passsword" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Posts" Relationship="Self.FK_Posts_PostBy" FromRole="Users" ToRole="Posts" />
+          <NavigationProperty Name="Posts1" Relationship="Self.FK_Posts_PostTo" FromRole="Users" ToRole="Posts" />
+          <NavigationProperty Name="Users1" Relationship="Self.Friends" FromRole="Users" ToRole="Users1" />
+          <NavigationProperty Name="Users2" Relationship="Self.Friends" FromRole="Users1" ToRole="Users" />
+          <NavigationProperty Name="Posts2" Relationship="Self.Post_User" FromRole="Users" ToRole="Posts" />
         </EntityType>
-        <EntityType Name="Poster">
-          <Key>
-            <PropertyRef Name="PostID" />
-          </Key>
-          <Property Name="PostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PostAv" Type="Int32" />
-          <Property Name="PostTill" Type="Int32" />
-          <Property Name="Meddelande" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Användare" Relationship="Self.FK_PostatAv" FromRole="Poster" ToRole="Användare" />
-          <NavigationProperty Name="Användare1" Relationship="Self.FK_PostatTill" FromRole="Poster" ToRole="Användare" />
-          <NavigationProperty Name="Användare2" Relationship="Self.Poster_Användare" FromRole="Poster" ToRole="Användare" />
-        </EntityType>
-        <Association Name="FK_Användare_Vän">
-          <End Role="Användare" Type="Self.Användare" Multiplicity="0..1" />
-          <End Role="Användare1" Type="Self.Användare" Multiplicity="*" />
+        <Association Name="FK_Posts_PostBy">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Posts" Type="Self.Posts" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Användare">
-              <PropertyRef Name="AnvändarID" />
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="Användare1">
-              <PropertyRef Name="Vän" />
+            <Dependent Role="Posts">
+              <PropertyRef Name="PostBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PostatAv">
-          <End Role="Användare" Type="Self.Användare" Multiplicity="0..1" />
-          <End Role="Poster" Type="Self.Poster" Multiplicity="*" />
+        <Association Name="FK_Posts_PostTo">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Posts" Type="Self.Posts" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Användare">
-              <PropertyRef Name="AnvändarID" />
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="Poster">
-              <PropertyRef Name="PostAv" />
+            <Dependent Role="Posts">
+              <PropertyRef Name="PostTo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PostatTill">
-          <End Role="Användare" Type="Self.Användare" Multiplicity="0..1" />
-          <End Role="Poster" Type="Self.Poster" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Användare">
-              <PropertyRef Name="AnvändarID" />
-            </Principal>
-            <Dependent Role="Poster">
-              <PropertyRef Name="PostTill" />
-            </Dependent>
-          </ReferentialConstraint>
+        <Association Name="Friends">
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <End Role="Users1" Type="Self.Users" Multiplicity="*" />
         </Association>
-        <Association Name="Poster_Användare">
-          <End Role="Användare" Type="Self.Användare" Multiplicity="*" />
-          <End Role="Poster" Type="Self.Poster" Multiplicity="*" />
+        <Association Name="Post_User">
+          <End Role="Posts" Type="Self.Posts" Multiplicity="*" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
         </Association>
         <EntityContainer Name="datebookEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Användare" EntityType="Self.Användare" />
-          <EntitySet Name="Poster" EntityType="Self.Poster" />
-          <AssociationSet Name="FK_Användare_Vän" Association="Self.FK_Användare_Vän">
-            <End Role="Användare" EntitySet="Användare" />
-            <End Role="Användare1" EntitySet="Användare" />
+          <EntitySet Name="Posts" EntityType="Self.Posts" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_Posts_PostBy" Association="Self.FK_Posts_PostBy">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Posts" EntitySet="Posts" />
           </AssociationSet>
-          <AssociationSet Name="FK_PostatAv" Association="Self.FK_PostatAv">
-            <End Role="Användare" EntitySet="Användare" />
-            <End Role="Poster" EntitySet="Poster" />
+          <AssociationSet Name="FK_Posts_PostTo" Association="Self.FK_Posts_PostTo">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Posts" EntitySet="Posts" />
           </AssociationSet>
-          <AssociationSet Name="FK_PostatTill" Association="Self.FK_PostatTill">
-            <End Role="Användare" EntitySet="Användare" />
-            <End Role="Poster" EntitySet="Poster" />
+          <AssociationSet Name="Friends" Association="Self.Friends">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Users1" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="Poster_Användare" Association="Self.Poster_Användare">
-            <End Role="Användare" EntitySet="Användare" />
-            <End Role="Poster" EntitySet="Poster" />
+          <AssociationSet Name="Post_User" Association="Self.Post_User">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -217,34 +238,44 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="datebookModelStoreContainer" CdmEntityContainer="datebookEntities">
-          <EntitySetMapping Name="Användare">
-            <EntityTypeMapping TypeName="datebookModel.Användare">
-              <MappingFragment StoreEntitySet="Användare">
-                <ScalarProperty Name="AnvändarID" ColumnName="AnvändarID" />
-                <ScalarProperty Name="Namn" ColumnName="Namn" />
-                <ScalarProperty Name="Kön" ColumnName="Kön" />
+          <EntitySetMapping Name="Posts">
+            <EntityTypeMapping TypeName="datebookModel.Posts">
+              <MappingFragment StoreEntitySet="Posts">
+                <ScalarProperty Name="PostId" ColumnName="PostId" />
+                <ScalarProperty Name="PostBy" ColumnName="PostBy" />
+                <ScalarProperty Name="PostTo" ColumnName="PostTo" />
+                <ScalarProperty Name="Post" ColumnName="Post" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="datebookModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
                 <ScalarProperty Name="Info" ColumnName="Info" />
-                <ScalarProperty Name="Vän" ColumnName="Vän" />
-                <ScalarProperty Name="Synlig" ColumnName="Synlig" />
+                <ScalarProperty Name="Visible" ColumnName="Visible" />
+                <ScalarProperty Name="Passsword" ColumnName="Passsword" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Poster">
-            <EntityTypeMapping TypeName="datebookModel.Poster">
-              <MappingFragment StoreEntitySet="Poster">
-                <ScalarProperty Name="PostID" ColumnName="PostID" />
-                <ScalarProperty Name="PostAv" ColumnName="PostAv" />
-                <ScalarProperty Name="PostTill" ColumnName="PostTill" />
-                <ScalarProperty Name="Meddelande" ColumnName="Meddelande" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="Poster_Användare" TypeName="datebookModel.Poster_Användare" StoreEntitySet="Poster_Användare">
-            <EndProperty Name="Användare">
-              <ScalarProperty Name="AnvändarID" ColumnName="AnvändarID" />
+          <AssociationSetMapping Name="Friends" TypeName="datebookModel.Friends" StoreEntitySet="Friends">
+            <EndProperty Name="Users">
+              <ScalarProperty Name="UserId" ColumnName="FriendId" />
             </EndProperty>
-            <EndProperty Name="Poster">
-              <ScalarProperty Name="PostID" ColumnName="PostID" />
+            <EndProperty Name="Users1">
+              <ScalarProperty Name="UserId" ColumnName="NameId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Post_User" TypeName="datebookModel.Post_User" StoreEntitySet="Post_User">
+            <EndProperty Name="Posts">
+              <ScalarProperty Name="PostId" ColumnName="PostId" />
+            </EndProperty>
+            <EndProperty Name="Users">
+              <ScalarProperty Name="UserId" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

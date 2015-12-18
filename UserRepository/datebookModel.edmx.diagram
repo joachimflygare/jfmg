@@ -4,13 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="25fccafbad144666bfddfa739c5d6251" Name="Diagram1">
-        <EntityTypeShape EntityType="datebookModel.Användare" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="datebookModel.Poster" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
-        <AssociationConnector Association="datebookModel.FK_Användare_Vän" ManuallyRouted="false" />
-        <AssociationConnector Association="datebookModel.FK_PostatAv" ManuallyRouted="false" />
-        <AssociationConnector Association="datebookModel.FK_PostatTill" ManuallyRouted="false" />
-        <AssociationConnector Association="datebookModel.Poster_Användare" ManuallyRouted="false" />
+      <Diagram DiagramId="c685998b128b4afb915df439da2af343" Name="Diagram1">
+        <EntityTypeShape EntityType="datebookModel.Posts" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="datebookModel.Users" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="datebookModel.FK_Posts_PostBy" ManuallyRouted="false" />
+        <AssociationConnector Association="datebookModel.FK_Posts_PostTo" ManuallyRouted="false" />
+        <AssociationConnector Association="datebookModel.Friends" ManuallyRouted="false" />
+        <AssociationConnector Association="datebookModel.Post_User" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
