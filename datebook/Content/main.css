@@ -1,0 +1,177 @@
+﻿
+input, select
+{
+    margin: 1px;
+    border-radius: 5px;
+}
+
+#searchstring
+{
+  
+    margin-left: 100px;
+    width: 300px;
+    height: 30px;
+    
+}
+#btnlogout
+{
+    margin-left: 100px;
+    width: 100px;
+    height: 30px;
+    
+}
+
+#linkprofile
+{
+
+    margin-left: 300px;
+}
+
+#linkfriends
+{
+
+    margin-left: 50px;
+
+}
+
+#Create
+{
+    padding-left: 30px;
+    background-color: #E3E6F0;
+    height:  100px;
+    width: 200px;
+    z-index: -1;
+    margin-top:-530px;
+}
+
+#pc
+{  
+    width: 250px;
+    height: 200px;
+    margin-top: 120px;
+    margin-left: 200px;
+}
+
+#pc img
+{
+    border-radius: 15px 50px 30px 5px;
+}
+
+#mz img
+{
+    border-radius: 15px 50px 30px 5px;
+}
+
+#mz
+{  
+    width: 250px;
+    height: 200px;
+    margin-top: -200px;
+    margin-left: 410px;
+}
+
+
+p
+{
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    white-space: nowrap;
+
+}
+
+h1
+{
+   
+    color : white;
+    font-family: cursive;
+}
+
+#Loggin, input
+{
+   
+    border-radius: 5px;
+}
+
+#Loggin
+{
+    margin-top: -40px;
+    margin-left: 700px;
+}
+
+#wrapper
+{   
+    
+    background-color: #E3E6F0;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 20px;
+    position: relative;
+    
+}
+
+a
+{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+}
+
+#inheader
+{
+    margin-top: -50px;
+}
+#header
+{
+    background-color: #2F477A;
+    width: 100%;
+    height: 100px;
+    position: fixed;
+    margin-top: -20px;
+}
+
+#infodiv    
+{
+    background-color: white;
+    height: 400px;
+    width: 150px;
+    margin-top: -450px;
+    margin-left: 30px;
+    opacity: 0.2;
+    position: relative;
+    overflow-y: auto;
+
+}
+
+#walldiv
+{
+        
+    height: 300px;
+    width: 300px;
+    margin-left: 190px;
+    margin-top: -300px;
+    overflow-y: auto;
+    z-index: 3;
+
+}
+.hTaggar
+{
+
+    color: white;
+    font-size: 40px;
+
+}
+
+#divPicture
+{
+    height: 600px;
+    width: 100%;
+    z-index: 1;
+}
+
+#couplepic
+{
+
+    height: 100%;
+    width: 100%;
+}

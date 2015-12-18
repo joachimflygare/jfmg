@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="datebookModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Användare">
+          <Key>
+            <PropertyRef Name="AnvändarID" />
+          </Key>
+          <Property Name="AnvändarID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Namn" Type="nvarchar" MaxLength="150" />
+          <Property Name="Kön" Type="nvarchar" MaxLength="6" />
+          <Property Name="Info" Type="nvarchar" MaxLength="400" />
+          <Property Name="Vän" Type="int" />
+          <Property Name="Synlig" Type="bit" />
+        </EntityType>
+        <EntityType Name="Poster">
+          <Key>
+            <PropertyRef Name="PostID" />
+          </Key>
+          <Property Name="PostID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PostAv" Type="int" />
+          <Property Name="PostTill" Type="int" />
+          <Property Name="Meddelande" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Poster_Användare">
+          <Key>
+            <PropertyRef Name="PostID" />
+            <PropertyRef Name="AnvändarID" />
+          </Key>
+          <Property Name="PostID" Type="int" Nullable="false" />
+          <Property Name="AnvändarID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Användare_Vän">
+          <End Role="Användare" Type="Self.Användare" Multiplicity="0..1" />
+          <End Role="Användare1" Type="Self.Användare" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Användare">
+              <PropertyRef Name="AnvändarID" />
+            </Principal>
+            <Dependent Role="Användare1">
+              <PropertyRef Name="Vän" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AnvändarePoster_Användare">
+          <End Role="Användare" Type="Self.Användare" Multiplicity="1" />
+          <End Role="Poster_Användare" Type="Self.Poster_Användare" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Användare">
+              <PropertyRef Name="AnvändarID" />
+            </Principal>
+            <Dependent Role="Poster_Användare">
+              <PropertyRef Name="AnvändarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostatAv">
+          <End Role="Användare" Type="Self.Användare" Multiplicity="0..1" />
+          <End Role="Poster" Type="Self.Poster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Användare">
+              <PropertyRef Name="AnvändarID" />
+            </Principal>
+            <Dependent Role="Poster">
+              <PropertyRef Name="PostAv" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostatTill">
+          <End Role="Användare" Type="Self.Användare" Multiplicity="0..1" />
+          <End Role="Poster" Type="Self.Poster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Användare">
+              <PropertyRef Name="AnvändarID" />
+            </Principal>
+            <Dependent Role="Poster">
+              <PropertyRef Name="PostTill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PosterAnvändare_Poster">
+          <End Role="Poster" Type="Self.Poster" Multiplicity="1" />
+          <End Role="Poster_Användare" Type="Self.Poster_Användare" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Poster">
+              <PropertyRef Name="PostID" />
+            </Principal>
+            <Dependent Role="Poster_Användare">
+              <PropertyRef Name="PostID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="datebookModelStoreContainer">
+          <EntitySet Name="Användare" EntityType="Self.Användare" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Poster" EntityType="Self.Poster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Poster_Användare" EntityType="Self.Poster_Användare" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Användare_Vän" Association="Self.FK_Användare_Vän">
+            <End Role="Användare" EntitySet="Användare" />
+            <End Role="Användare1" EntitySet="Användare" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AnvändarePoster_Användare" Association="Self.FK_AnvändarePoster_Användare">
+            <End Role="Användare" EntitySet="Användare" />
+            <End Role="Poster_Användare" EntitySet="Poster_Användare" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostatAv" Association="Self.FK_PostatAv">
+            <End Role="Användare" EntitySet="Användare" />
+            <End Role="Poster" EntitySet="Poster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostatTill" Association="Self.FK_PostatTill">
+            <End Role="Användare" EntitySet="Användare" />
+            <End Role="Poster" EntitySet="Poster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PosterAnvändare_Poster" Association="Self.FK_PosterAnvändare_Poster">
+            <End Role="Poster" EntitySet="Poster" />
+            <End Role="Poster_Användare" EntitySet="Poster_Användare" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="datebookModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Användare">
+          <Key>
+            <PropertyRef Name="AnvändarID" />
+          </Key>
+          <Property Name="AnvändarID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Namn" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Kön" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Info" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="Vän" Type="Int32" />
+          <Property Name="Synlig" Type="Boolean" />
+          <NavigationProperty Name="Användare1" Relationship="Self.FK_Användare_Vän" FromRole="Användare" ToRole="Användare1" />
+          <NavigationProperty Name="Användare2" Relationship="Self.FK_Användare_Vän" FromRole="Användare1" ToRole="Användare" />
+          <NavigationProperty Name="Poster" Relationship="Self.FK_PostatAv" FromRole="Användare" ToRole="Poster" />
+          <NavigationProperty Name="Poster1" Relationship="Self.FK_PostatTill" FromRole="Användare" ToRole="Poster" />
+          <NavigationProperty Name="Poster2" Relationship="Self.Poster_Användare" FromRole="Användare" ToRole="Poster" />
+        </EntityType>
+        <EntityType Name="Poster">
+          <Key>
+            <PropertyRef Name="PostID" />
+          </Key>
+          <Property Name="PostID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PostAv" Type="Int32" />
+          <Property Name="PostTill" Type="Int32" />
+          <Property Name="Meddelande" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Användare" Relationship="Self.FK_PostatAv" FromRole="Poster" ToRole="Användare" />
+          <NavigationProperty Name="Användare1" Relationship="Self.FK_PostatTill" FromRole="Poster" ToRole="Användare" />
+          <NavigationProperty Name="Användare2" Relationship="Self.Poster_Användare" FromRole="Poster" ToRole="Användare" />
+        </EntityType>
+        <Association Name="FK_Användare_Vän">
+          <End Role="Användare" Type="Self.Användare" Multiplicity="0..1" />
+          <End Role="Användare1" Type="Self.Användare" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Användare">
+              <PropertyRef Name="AnvändarID" />
+            </Principal>
+            <Dependent Role="Användare1">
+              <PropertyRef Name="Vän" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostatAv">
+          <End Role="Användare" Type="Self.Användare" Multiplicity="0..1" />
+          <End Role="Poster" Type="Self.Poster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Användare">
+              <PropertyRef Name="AnvändarID" />
+            </Principal>
+            <Dependent Role="Poster">
+              <PropertyRef Name="PostAv" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostatTill">
+          <End Role="Användare" Type="Self.Användare" Multiplicity="0..1" />
+          <End Role="Poster" Type="Self.Poster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Användare">
+              <PropertyRef Name="AnvändarID" />
+            </Principal>
+            <Dependent Role="Poster">
+              <PropertyRef Name="PostTill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Poster_Användare">
+          <End Role="Användare" Type="Self.Användare" Multiplicity="*" />
+          <End Role="Poster" Type="Self.Poster" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="datebookEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Användare" EntityType="Self.Användare" />
+          <EntitySet Name="Poster" EntityType="Self.Poster" />
+          <AssociationSet Name="FK_Användare_Vän" Association="Self.FK_Användare_Vän">
+            <End Role="Användare" EntitySet="Användare" />
+            <End Role="Användare1" EntitySet="Användare" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostatAv" Association="Self.FK_PostatAv">
+            <End Role="Användare" EntitySet="Användare" />
+            <End Role="Poster" EntitySet="Poster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PostatTill" Association="Self.FK_PostatTill">
+            <End Role="Användare" EntitySet="Användare" />
+            <End Role="Poster" EntitySet="Poster" />
+          </AssociationSet>
+          <AssociationSet Name="Poster_Användare" Association="Self.Poster_Användare">
+            <End Role="Användare" EntitySet="Användare" />
+            <End Role="Poster" EntitySet="Poster" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="datebookModelStoreContainer" CdmEntityContainer="datebookEntities">
+          <EntitySetMapping Name="Användare">
+            <EntityTypeMapping TypeName="datebookModel.Användare">
+              <MappingFragment StoreEntitySet="Användare">
+                <ScalarProperty Name="AnvändarID" ColumnName="AnvändarID" />
+                <ScalarProperty Name="Namn" ColumnName="Namn" />
+                <ScalarProperty Name="Kön" ColumnName="Kön" />
+                <ScalarProperty Name="Info" ColumnName="Info" />
+                <ScalarProperty Name="Vän" ColumnName="Vän" />
+                <ScalarProperty Name="Synlig" ColumnName="Synlig" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Poster">
+            <EntityTypeMapping TypeName="datebookModel.Poster">
+              <MappingFragment StoreEntitySet="Poster">
+                <ScalarProperty Name="PostID" ColumnName="PostID" />
+                <ScalarProperty Name="PostAv" ColumnName="PostAv" />
+                <ScalarProperty Name="PostTill" ColumnName="PostTill" />
+                <ScalarProperty Name="Meddelande" ColumnName="Meddelande" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Poster_Användare" TypeName="datebookModel.Poster_Användare" StoreEntitySet="Poster_Användare">
+            <EndProperty Name="Användare">
+              <ScalarProperty Name="AnvändarID" ColumnName="AnvändarID" />
+            </EndProperty>
+            <EndProperty Name="Poster">
+              <ScalarProperty Name="PostID" ColumnName="PostID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
