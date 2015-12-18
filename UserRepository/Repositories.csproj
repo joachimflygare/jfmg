@@ -53,6 +53,7 @@
     <Compile Include="Användare.cs">
       <DependentUpon>datebookModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="RegisterRepository.cs" />
     <Compile Include="UserRepository.cs" />
     <Compile Include="datebookModel.Context.cs">
       <AutoGen>True</AutoGen>
