@@ -11,66 +11,58 @@ namespace datebook.Controllers
 {
     public class HomeController : Controller
     {
-        private UserRepository _userRepository;
-
-        public HomeController()
-        {
-
-            _userRepository = new UserRepository();
-
-        }
-
         public ActionResult Index()
         {
 
             return View();
         }
-
-        [HttpGet]
-        public ActionResult Register()
-        {
-            
-            return View();
-        }
-
         public ActionResult Profile()
         {
+            var exampleProfile = new ProfileRepository();
 
-            return View();
-        }
-
-
-        public ActionResult LogIn()
-        {
-            if (User.Identity.IsAuthenticated)
+            var profile = new ProfileModel
             {
-                return RedirectToAction("Profile", "Home", new { username = User.Identity.Name });
+                Name = exampleProfile.GetFirst().Name,
+                Username = exampleProfile.GetFirst().Username,
+                Age = exampleProfile.GetFirst().Age.Value,
+                Gender = exampleProfile.GetFirst().Gender
+            };
+
+
+            return View(profile);
+        }
+        [HttpPost]
+        public ActionResult Register(IndexModel model)
+        {
+            if (model != null && ModelState.IsValid)
+            {
+
+                RegisterRepository.Register(model.Name, model.RegUsername, model.Gender, model.Age, model.RegPassword);
+                return RedirectToAction("Profile", "Home");
+
             }
+          
             return View();
+
         }
 
-
+      
         [HttpPost]
         public ActionResult LogIn(IndexModel model)
         {
-            var user = IndexRepository.LogIn(model.Username, model.Password);
+            var userLogging = LogInRepository.LogIn(model.Username, model.Password);
 
-            if (user != null)
+            if (userLogging != null)
             {
-                FormsAuthentication.SetAuthCookie(model.Username, false);
                 return RedirectToAction("Profile", "Home", new { username = User.Identity.Name });
+                TempData["Succes"] = "<script>alert('Welcome!');</script>"; 
             }
             else
             {
-
-                TempData["loginAlert"] = "<script>alert('Wrong username or password!');</script>";
-                FormsAuthentication.SignOut();
-
-
+                TempData["Error"] = "<script>alert('Wrong username or password!');</script>";
                 return View();
             }
         }
-
-
+       
     }
-    }
+}

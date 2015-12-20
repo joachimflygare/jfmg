@@ -21,6 +21,8 @@
                 @Html.PasswordFor(model => model.Password, new {placeholder = "Password"})
                 @Html.ValidationMessageFor(model => model.Password)
                 <input type="submit" value="Log in"/>
+                @Html.Raw(TempData["Error"])
+                @Html.Raw(TempData["Succes"])
                 }
             </div>
         </div>
@@ -40,11 +42,11 @@
                     @Html.PasswordFor(model => model.Password, new { placeholder = "Password" })
                     @Html.ValidationMessageFor(model => model.Password)<br>
                     <br />
-                    <input type="button" value="Register">
+                    <input type="submit" value="Register">
                 }
             </div>
-            <div id="pc"><img src="@Url.Content("~/pictures/pris.jpg")"><p>Cilla Chan, 30</p></div>
-            <div id="mz"><img src="@Url.Content("~/pictures/Mark.jpg")"><p>Zack Markenberg, 31</p></div>
+            @*@<div id="pc"><img src="@Url.Content("~/pictures/pris.jpg")"><p>Cilla Chan, 30</p></div>
+            <div id="mz"><img src="@Url.Content("~/pictures/Mark.jpg")"><p>Zack Markenberg, 31</p></div>*@
         </div>
     </div>
 </body>

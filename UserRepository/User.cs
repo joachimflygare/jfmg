@@ -12,16 +12,16 @@ namespace Repositories
     using System;
     using System.Collections.Generic;
     
-    public partial class Users
+    public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Users()
+        public User()
         {
-            this.Posts = new HashSet<Posts>();
-            this.Posts1 = new HashSet<Posts>();
-            this.Users1 = new HashSet<Users>();
-            this.Users2 = new HashSet<Users>();
-            this.Posts2 = new HashSet<Posts>();
+            this.Posts = new HashSet<Post>();
+            this.Posts1 = new HashSet<Post>();
+            this.Users1 = new HashSet<User>();
+            this.Users = new HashSet<User>();
+            this.Posts2 = new HashSet<Post>();
         }
     
         public int UserId { get; set; }
@@ -34,14 +34,14 @@ namespace Repositories
         public string Passsword { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Posts> Posts { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Posts> Posts1 { get; set; }
+        public virtual ICollection<Post> Posts1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Users> Users1 { get; set; }
+        public virtual ICollection<User> Users1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Users> Users2 { get; set; }
+        public virtual ICollection<User> Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Posts> Posts2 { get; set; }
+        public virtual ICollection<Post> Posts2 { get; set; }
     }
 }

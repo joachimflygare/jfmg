@@ -13,10 +13,10 @@ namespace Repositories
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class datebookEntities : DbContext
+    public partial class MainDbEntities : DbContext
     {
-        public datebookEntities()
-            : base("name=datebookEntities")
+        public MainDbEntities()
+            : base("name=MainDbEntities")
         {
         }
     
@@ -25,7 +25,7 @@ namespace Repositories
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Posts> Posts { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Post> Posts { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

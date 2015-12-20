@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class UserRepository
+    public class ProfileRepository
     {
-        public Users GetFirst()
+        public User GetFirst()
         {
-
-            using (var context = new datebookEntities())
+            using (var context = new MainDbEntities())
             {
                 return context.Users.FirstOrDefault();
             }

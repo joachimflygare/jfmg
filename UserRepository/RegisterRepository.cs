@@ -10,9 +10,9 @@ namespace Repositories
     {
         public static void Register(string firstname, string username, string gender, int age, string password)
         {
-            using (var context = new datebookEntities())
+            using (var context = new MainDbEntities())
             {
-                Users newUser = new Users
+                User newUser = new User
                 {
                     Name = firstname,
                     Username = username,
