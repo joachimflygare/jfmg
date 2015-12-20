@@ -13,14 +13,14 @@
     <div id="wrapper">
         <div id="header">
             <h2 class="hTaggar">datebook.com</h2>
-            <div id="Loggin">
-              @Html.ActionLink("Log In", "LogIn", "Home")
+            <div id="IndexLoggin">
+                @Html.ActionLink("Log In", "LogIn", "Home", new { @id="LogginLink"})
             </div>
         </div>
         <div id="divPicture">
             <img src="@Url.Content("~/pictures/couple.jpg")" id="couplepic" />
-            <div id="Create">
-               <h1>@Html.ActionLink("Join now", "Register", "Home")</h1>
+            <div id="IndexRegister">
+               @Html.ActionLink("Join now", "Register", "Home", new { @id ="RegisterLink"})
             </div>
             @*@<div id="pc"><img src="@Url.Content("~/pictures/pris.jpg")"><p>Cilla Chan, 30</p></div>
             <div id="mz"><img src="@Url.Content("~/pictures/Mark.jpg")"><p>Zack Markenberg, 31</p></div>*@
