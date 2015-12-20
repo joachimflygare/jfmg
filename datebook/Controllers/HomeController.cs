@@ -38,9 +38,6 @@ namespace datebook.Controllers
 
             return View(model);
         }
-
-
-
         [HttpGet]
         public ActionResult LogIn()
         {
@@ -66,7 +63,6 @@ namespace datebook.Controllers
             }
             return View(user);
         }
-
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
@@ -101,6 +97,10 @@ namespace datebook.Controllers
                 ModelState.AddModelError("", "Incorrect data");
             }
 
+            return View();
+        }
+        public ActionResult Edit()
+        {
             return View();
         }
         private bool IsValid(string username, string password)

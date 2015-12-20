@@ -33,6 +33,11 @@ h1
     font-family: cursive;
 }
 
+h3
+{
+    color: white;
+}
+
 .hTaggar
 {
 
@@ -110,7 +115,8 @@ h1
 #Loggin
 {
     margin-top: -40px;
-    margin-left: 700px;
+    margin-left: 530px;
+    margin-bottom: 20px;
 }
 
 #LogOut
@@ -119,6 +125,34 @@ h1
     margin-top: 50px;
     margin-left: 90%;
     
+}
+
+
+#EditDiv
+{
+
+    padding-left: 30px;
+    background-color: #E3E6F0;
+    height:  150px;
+    width: 200px;
+    z-index: -1;
+    margin-top: -550px;
+
+}
+
+#Edit
+{
+  
+   font-style: italic;
+
+}
+
+#EditBox
+{
+
+    height: 150px;
+    width: 200px;
+
 }
 
 #Loggin, input

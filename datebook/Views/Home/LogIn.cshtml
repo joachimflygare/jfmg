@@ -18,7 +18,7 @@
             <div id="Loggin">
                 @using (Html.BeginForm())
                     { 
-                    @Html.ValidationSummary(true, "Login failed, please check username and password")
+                    @Html.ValidationSummary(true, "Login failed")
                     @Html.TextBoxFor(model => model.Username, new { placeholder = "Username" })
                     @Html.ValidationMessageFor(model => model.Username)
                     @Html.PasswordFor(model => model.Password, new { placeholder = "Password" })

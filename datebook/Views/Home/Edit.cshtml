@@ -1,0 +1,58 @@
+﻿@model datebook.Models.EditModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title -Datebook.com</title>
+    <link href="@Url.Content("~/Content/main.css")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <h2 class="hTaggar">datebook.com</h2>
+        </div>
+        <div id="divPicture">
+            <img src="@Url.Content("~/pictures/couple.jpg")" id="couplepic" />
+            <div id="EditDiv">
+                <h3>Edit information</h3>
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary(true, "Error, please re-check the fields")
+                    @Html.TextBoxFor(model => model.Name, new { placeholder = "Firstname" })<br>
+                    <br />
+                    @Html.TextBoxFor(model => model.Username, new { placeholder = "Username" })
+                    @Html.ValidationMessageFor(model => model.Username)<br>
+                    <br />
+                    @Html.DropDownList("Gender", new List<SelectListItem> {
+                    new SelectListItem {Text = "Male", Value= "Male"},
+                    new SelectListItem {Text = "Female", Value= "Female"}
+                    }, "Select Gender")<br />
+                    <br />
+                    @Html.TextBoxFor(model => model.Age, new { placeholder = "Age" })<br>
+                    <br />
+                    @Html.TextAreaFor(model => model.Info, new { placeholder = "Info", @id ="EditBox"})<br>
+                    <br />
+                    @Html.DropDownList("Visible", new List<SelectListItem> {
+                    new SelectListItem {Text = "Visible for search", Value = "1"},
+                    new SelectListItem {Text = "Not visible for search", Value ="2"}
+                    }, "Visible for search?")<br />
+                    <br />
+                    @Html.PasswordFor(model => model.Password, new { placeholder = "Password"})
+                    @Html.ValidationMessageFor(model => model.Password)<br>
+                    <br />
+                    <input type="submit" value="Change">
+                }
+            </div>
+            @*@<div id="pc"><img src="@Url.Content("~/pictures/pris.jpg")"><p>Cilla Chan, 30</p></div>
+                <div id="mz"><img src="@Url.Content("~/pictures/Mark.jpg")"><p>Zack Markenberg, 31</p></div>*@
+        </div>
+    </div>
+</body>
+</html>

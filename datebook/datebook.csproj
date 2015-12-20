@@ -164,6 +164,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\EditModel.cs" />
     <Compile Include="Models\IndexModel.cs" />
     <Compile Include="Models\LogInModel.cs" />
     <Compile Include="Models\ProfileModel.cs" />
@@ -234,6 +235,7 @@
     <Content Include="Views\Home\Profile.cshtml" />
     <Content Include="Views\Home\LogIn.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Home\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="pictures\" />
