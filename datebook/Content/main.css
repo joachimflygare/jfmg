@@ -88,7 +88,7 @@ h1
     height:  100px;
     width: 300px;
     z-index: -1;
-    margin-top:-355px;
+    margin-top:-353px;
 }
 
 #Register
@@ -98,7 +98,7 @@ h1
     height:  100px;
     width: 200px;
     z-index: -1;
-    margin-top:-530px;
+    margin-top: -500px;
 }
 
 #IndexLoggin
@@ -112,11 +112,13 @@ h1
     margin-top: -40px;
     margin-left: 700px;
 }
+
 #Loggin, input
 {
    
     border-radius: 5px;
 }
+
 #infodiv    
 {
     background-color: white;
