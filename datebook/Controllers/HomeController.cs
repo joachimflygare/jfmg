@@ -15,19 +15,32 @@ namespace datebook.Controllers
         {
             return View();
         }
-        public ActionResult Profile()
+        public ActionResult Profile(string username)
         {
-            var exampleProfile = new ProfileRepository();
-            var profile = new ProfileModel
+            if (User.Identity.IsAuthenticated == false)
             {
-                Name = exampleProfile.GetFirst().Name,
-                Username = exampleProfile.GetFirst().Username,
-                Age = exampleProfile.GetFirst().Age.Value,
-                Gender = exampleProfile.GetFirst().Gender
-            };
+                return RedirectToAction("Index", "Home");
+            }
 
-            return View(profile);
+            if (username == null)
+            {
+                username = User.Identity.Name;
+            }
+
+            var getProfile = ProfileRepository.GetProfile(username);
+            var model = new ProfileModel();
+            model.Username = username;
+            model.Name = getProfile.Name;
+            model.Age = getProfile.Age.Value;
+            model.Gender = getProfile.Gender;
+            model.Info = getProfile.Info;
+            model.visible = getProfile.Visible.Value;
+
+            return View(model);
         }
+
+
+
         [HttpGet]
         public ActionResult LogIn()
         {
@@ -43,7 +56,7 @@ namespace datebook.Controllers
                 if(IsValid(user.Username, user.Password))
                 {
                     FormsAuthentication.SetAuthCookie(user.Username, false);
-                    return RedirectToAction("Profile", "Home");
+                    return RedirectToAction("Profile", "Home", new { username = User.Identity.Name });
                 }
                 else
                 {
@@ -52,6 +65,12 @@ namespace datebook.Controllers
 
             }
             return View(user);
+        }
+
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
         }
         public ActionResult Register()
         {

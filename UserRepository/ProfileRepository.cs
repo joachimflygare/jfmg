@@ -8,14 +8,14 @@ namespace Repositories
 {
     public class ProfileRepository
     {
-        public User GetFirst()
+          public static User GetProfile(string username)
         {
-            using (var db = new MainDbEntities())
-            {
-                return db.Users.FirstOrDefault();
+            using (var db = new MainDbEntities()) {
+                var user = db.Users.FirstOrDefault(x => x.Username.Equals(username));
+                return user;
             }
-
         }
+        
 
     }
 }

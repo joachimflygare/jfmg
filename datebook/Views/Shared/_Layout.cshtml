@@ -10,14 +10,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-
-    @if (Request.IsAuthenticated)
-    {
-        
-        @Html.ActionLink("Log out","LogOut","Home")
-    }
-
-    
+   
     @RenderBody()
 
 

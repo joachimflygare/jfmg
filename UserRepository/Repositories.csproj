@@ -81,8 +81,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>datebookModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="IndexRepository.cs" />
-    <Compile Include="LogInRepository.cs" />
     <Compile Include="Post.cs">
       <DependentUpon>datebookModel.tt</DependentUpon>
     </Compile>

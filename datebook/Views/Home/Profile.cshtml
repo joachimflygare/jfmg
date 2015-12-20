@@ -5,15 +5,45 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Profile</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title -Datebook.com</title>
+    <link href="@Url.Content("~/Content/main.css")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            @if (Request.IsAuthenticated)
+            {
+                @Html.ActionLink("Log out", "LogOut", "Home", new { @id = "LogOut" })
+            }
+            <h2 class="hTaggar">datebook.com</h2>
+            <div id="IndexLoggin">
+               
+            </div>
+        </div>
+        <div id="divPicture">
+            <img src="@Url.Content("~/pictures/couple.jpg")" id="couplepic" />
+            <div id="infodiv">
+                <div>
+                    <p>Logged in as: @Model.Username</p>
+                    <br />
+                    <p>Name: @Model.Name</p>
+                    <p>Age: @Model.Age</p>
+                    <p>Gender: @Model.Gender</p>
+                    <p>Info: @Model.Info</p>
+                    <p>Visible: @Model.visible</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.ActionLink("Tillbaka till startsidan", "Index", "Home")
+</body>
+</html>
 
-<div>
-    <p>Name: @Model.Name</p>
-    <p>Username: @Model.Username</p>
-    <p>Age: @Model.Age</p>
-    <p>Gender: @Model.Name</p>
 
-</div>
 
-@Html.ActionLink("Tillbaka till startsidan", "Index", "Home")
+
 
