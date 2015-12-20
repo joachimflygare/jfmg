@@ -25,7 +25,8 @@ namespace Repositories
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Post> Posts { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Friends> Friends { get; set; }
+        public virtual DbSet<Posts> Posts { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
     }
 }

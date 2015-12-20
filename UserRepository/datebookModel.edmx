@@ -7,11 +7,12 @@
       <Schema Namespace="MainDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Friends">
           <Key>
-            <PropertyRef Name="NameId" />
-            <PropertyRef Name="FriendId" />
+            <PropertyRef Name="RelationID" />
           </Key>
-          <Property Name="NameId" Type="int" Nullable="false" />
-          <Property Name="FriendId" Type="int" Nullable="false" />
+          <Property Name="RelationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="FriendId" Type="int" />
+          <Property Name="Accepted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Post_User">
           <Key>
@@ -43,8 +44,8 @@
           <Property Name="Visible" Type="bit" />
           <Property Name="Passsword" Type="nvarchar" MaxLength="40" />
         </EntityType>
-        <Association Name="FK_Friends_FriendId">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+        <Association Name="FK__Friends__FriendI__286302EC">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Friends" Type="Self.Friends" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
@@ -55,15 +56,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Friends_NameId">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+        <Association Name="FK__Friends__UserId__276EDEB3">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Friends" Type="Self.Friends" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="UserId" />
             </Principal>
             <Dependent Role="Friends">
-              <PropertyRef Name="NameId" />
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -120,11 +121,11 @@
           <EntitySet Name="Post_User" EntityType="Self.Post_User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Posts" EntityType="Self.Posts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Friends_FriendId" Association="Self.FK_Friends_FriendId">
+          <AssociationSet Name="FK__Friends__FriendI__286302EC" Association="Self.FK__Friends__FriendI__286302EC">
             <End Role="Users" EntitySet="Users" />
             <End Role="Friends" EntitySet="Friends" />
           </AssociationSet>
-          <AssociationSet Name="FK_Friends_NameId" Association="Self.FK_Friends_NameId">
+          <AssociationSet Name="FK__Friends__UserId__276EDEB3" Association="Self.FK__Friends__UserId__276EDEB3">
             <End Role="Users" EntitySet="Users" />
             <End Role="Friends" EntitySet="Friends" />
           </AssociationSet>
@@ -150,19 +151,30 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MainDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Post">
+        <EntityType Name="Friends">
+          <Key>
+            <PropertyRef Name="RelationID" />
+          </Key>
+          <Property Name="RelationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="FriendId" Type="Int32" />
+          <Property Name="Accepted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Friends__FriendI__286302EC" FromRole="Friends" ToRole="Users" />
+          <NavigationProperty Name="Users1" Relationship="Self.FK__Friends__UserId__276EDEB3" FromRole="Friends" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Posts">
           <Key>
             <PropertyRef Name="PostId" />
           </Key>
           <Property Name="PostId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PostBy" Type="Int32" />
           <Property Name="PostTo" Type="Int32" />
-          <Property Name="Post1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Posts_PostBy" FromRole="Posts" ToRole="Users" />
-          <NavigationProperty Name="User1" Relationship="Self.FK_Posts_PostTo" FromRole="Posts" ToRole="Users" />
-          <NavigationProperty Name="Users" Relationship="Self.Post_User" FromRole="Posts" ToRole="Users" />
+          <Property Name="Post" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Posts_PostBy" FromRole="Posts" ToRole="Users" />
+          <NavigationProperty Name="Users1" Relationship="Self.FK_Posts_PostTo" FromRole="Posts" ToRole="Users" />
+          <NavigationProperty Name="Users2" Relationship="Self.Post_User" FromRole="Posts" ToRole="Users" />
         </EntityType>
-        <EntityType Name="User">
+        <EntityType Name="Users">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
@@ -174,15 +186,39 @@
           <Property Name="Info" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
           <Property Name="Visible" Type="Boolean" />
           <Property Name="Passsword" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Friends" Relationship="Self.FK__Friends__FriendI__286302EC" FromRole="Users" ToRole="Friends" />
+          <NavigationProperty Name="Friends1" Relationship="Self.FK__Friends__UserId__276EDEB3" FromRole="Users" ToRole="Friends" />
           <NavigationProperty Name="Posts" Relationship="Self.FK_Posts_PostBy" FromRole="Users" ToRole="Posts" />
           <NavigationProperty Name="Posts1" Relationship="Self.FK_Posts_PostTo" FromRole="Users" ToRole="Posts" />
-          <NavigationProperty Name="Users1" Relationship="Self.Friends" FromRole="Users" ToRole="Users1" />
-          <NavigationProperty Name="Users" Relationship="Self.Friends" FromRole="Users1" ToRole="Users" />
           <NavigationProperty Name="Posts2" Relationship="Self.Post_User" FromRole="Users" ToRole="Posts" />
         </EntityType>
+        <Association Name="FK__Friends__FriendI__286302EC">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Friends" Type="Self.Friends" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Friends">
+              <PropertyRef Name="FriendId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Friends__UserId__276EDEB3">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Friends" Type="Self.Friends" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Friends">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Posts_PostBy">
-          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Posts" Type="Self.Post" Multiplicity="*" />
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Posts" Type="Self.Posts" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="UserId" />
@@ -193,8 +229,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Posts_PostTo">
-          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Posts" Type="Self.Post" Multiplicity="*" />
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Posts" Type="Self.Posts" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="UserId" />
@@ -204,17 +240,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Friends">
-          <End Role="Users" Type="Self.User" Multiplicity="*" />
-          <End Role="Users1" Type="Self.User" Multiplicity="*" />
-        </Association>
         <Association Name="Post_User">
-          <End Role="Posts" Type="Self.Post" Multiplicity="*" />
-          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <End Role="Posts" Type="Self.Posts" Multiplicity="*" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
         </Association>
         <EntityContainer Name="MainDbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Posts" EntityType="Self.Post" />
-          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Friends" EntityType="Self.Friends" />
+          <EntitySet Name="Posts" EntityType="Self.Posts" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK__Friends__FriendI__286302EC" Association="Self.FK__Friends__FriendI__286302EC">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Friends" EntitySet="Friends" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Friends__UserId__276EDEB3" Association="Self.FK__Friends__UserId__276EDEB3">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Friends" EntitySet="Friends" />
+          </AssociationSet>
           <AssociationSet Name="FK_Posts_PostBy" Association="Self.FK_Posts_PostBy">
             <End Role="Users" EntitySet="Users" />
             <End Role="Posts" EntitySet="Posts" />
@@ -222,10 +263,6 @@
           <AssociationSet Name="FK_Posts_PostTo" Association="Self.FK_Posts_PostTo">
             <End Role="Users" EntitySet="Users" />
             <End Role="Posts" EntitySet="Posts" />
-          </AssociationSet>
-          <AssociationSet Name="Friends" Association="Self.Friends">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Users1" EntitySet="Users" />
           </AssociationSet>
           <AssociationSet Name="Post_User" Association="Self.Post_User">
             <End Role="Posts" EntitySet="Posts" />
@@ -238,18 +275,28 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="MainDbModelStoreContainer" CdmEntityContainer="MainDbEntities">
+          <EntitySetMapping Name="Friends">
+            <EntityTypeMapping TypeName="MainDbModel.Friends">
+              <MappingFragment StoreEntitySet="Friends">
+                <ScalarProperty Name="RelationID" ColumnName="RelationID" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FriendId" ColumnName="FriendId" />
+                <ScalarProperty Name="Accepted" ColumnName="Accepted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Posts">
-            <EntityTypeMapping TypeName="MainDbModel.Post">
+            <EntityTypeMapping TypeName="MainDbModel.Posts">
               <MappingFragment StoreEntitySet="Posts">
                 <ScalarProperty Name="PostId" ColumnName="PostId" />
                 <ScalarProperty Name="PostBy" ColumnName="PostBy" />
                 <ScalarProperty Name="PostTo" ColumnName="PostTo" />
-                <ScalarProperty Name="Post1" ColumnName="Post" />
+                <ScalarProperty Name="Post" ColumnName="Post" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="MainDbModel.User">
+            <EntityTypeMapping TypeName="MainDbModel.Users">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -262,14 +309,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Friends" TypeName="MainDbModel.Friends" StoreEntitySet="Friends">
-            <EndProperty Name="Users">
-              <ScalarProperty Name="UserId" ColumnName="FriendId" />
-            </EndProperty>
-            <EndProperty Name="Users1">
-              <ScalarProperty Name="UserId" ColumnName="NameId" />
-            </EndProperty>
-          </AssociationSetMapping>
           <AssociationSetMapping Name="Post_User" TypeName="MainDbModel.Post_User" StoreEntitySet="Post_User">
             <EndProperty Name="Posts">
               <ScalarProperty Name="PostId" ColumnName="PostId" />
@@ -292,7 +331,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

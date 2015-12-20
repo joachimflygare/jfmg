@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Repositories;
 using datebook.Models;
 using System.Web.Security;
+using Repositories.Repositories;
 
 namespace datebook.Controllers
 {
@@ -15,6 +16,7 @@ namespace datebook.Controllers
         {
             return View();
         }
+
         public ActionResult Profile(string username)
         {
             if (User.Identity.IsAuthenticated == false)
@@ -38,6 +40,7 @@ namespace datebook.Controllers
 
             return View(model);
         }
+
         [HttpGet]
         public ActionResult LogIn()
         {
@@ -45,6 +48,7 @@ namespace datebook.Controllers
             return View();
 
         }
+
         [HttpPost]
         public ActionResult LogIn(LogInModel user)
         {
@@ -63,16 +67,39 @@ namespace datebook.Controllers
             }
             return View(user);
         }
+
+        private bool IsValid(string username, string password)
+        {
+            bool isValid = false;
+
+            using (var db = new MainDbEntities())
+            {
+                var user = db.Users.FirstOrDefault(u => u.Username == username);
+
+                if (user != null)
+                {
+                    if (user.Passsword == password)
+                    {
+                        isValid = true;
+                    }
+                }
+            }
+
+            return isValid;
+        }
+
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
+
         public ActionResult Register()
         {
 
             return View();
         }
+
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
@@ -99,29 +126,29 @@ namespace datebook.Controllers
 
             return View();
         }
+
         public ActionResult Edit()
         {
             return View();
         }
-        private bool IsValid(string username, string password)
+
+        public ActionResult Friends()
         {
-            bool isValid = false;
-
-            using (var db = new MainDbEntities())
-            {
-                var user = db.Users.FirstOrDefault(u => u.Username == username);
-
-                if (user != null)
-                {
-                    if (user.Passsword == password)
-                    {
-                        isValid = true;
-                    }
-                }
+             if (User.Identity.IsAuthenticated == false) {
+                return RedirectToAction("LogIn", "Home");
             }
 
-            return isValid;
+            var userName = System.Web.HttpContext.Current.User.Identity.Name;
+            Users myProfile = ProfileRepository.GetProfile(userName);
+
+            List<Friends> friendList = FriendRepository.GetFriends(myProfile.UserId);
+            ViewBag.Profile = friendList;
+
+            return View();
         }
+
+        }
+        
        
     }
-}
+

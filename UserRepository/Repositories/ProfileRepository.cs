@@ -8,7 +8,7 @@ namespace Repositories
 {
     public class ProfileRepository
     {
-          public static User GetProfile(string username)
+          public static Users GetProfile(string username)
         {
             using (var db = new MainDbEntities()) {
                 var user = db.Users.FirstOrDefault(x => x.Username.Equals(username));

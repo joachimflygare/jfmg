@@ -12,7 +12,7 @@ namespace Repositories
         {
             using (var db = new MainDbEntities())
             {
-                User newUser = new User
+                Users newUser = new Users
                 {
                     Name = firstname,
                     Username = username,

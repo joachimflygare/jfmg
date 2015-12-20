@@ -161,13 +161,27 @@ h3
     border-radius: 5px;
 }
 
-#infodiv    
+#infoDiv    
 {
-    
     height: 400px;
     width: 200px;
-    margin-top: -510px;
+    margin-top: -500px;
     margin-left: 30px;
+    
+}
+
+#friendsDiv
+{
+    margin-top: -400px;
+    margin-left: 1050px;
+    height: 200px;
+    width: 300px;
+}
+
+#LoadFriends
+{
+    font-style: italic;
+    font-size: 30px;
     
 }
 

@@ -165,6 +165,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\EditModel.cs" />
+    <Compile Include="Models\FriendModel.cs" />
     <Compile Include="Models\IndexModel.cs" />
     <Compile Include="Models\LogInModel.cs" />
     <Compile Include="Models\ProfileModel.cs" />

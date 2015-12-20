@@ -21,13 +21,11 @@
             }
             <h2 class="hTaggar">datebook.com</h2>
             <div id="IndexLoggin">
-               
             </div>
         </div>
         <div id="divPicture">
             <img src="@Url.Content("~/pictures/couple.jpg")" id="couplepic" />
-            <div id="infodiv">
-                <div>
+            <div id="infoDiv">
                     <p>Logged in as: @Model.Username</p>
                     <br />
                     <p>Name: @Model.Name</p>
@@ -45,11 +43,18 @@
                     <br />
                     <br />
                     @Html.ActionLink("Edit information", "Edit", "Home", new {@id = "Edit" })
-                </div>
+            </div>
+      
+            <div id="friendsDiv">
+                @if (Request.IsAuthenticated)
+                {
+                    @Html.ActionLink("Click to load friends", "Friends", "Home", new { @id ="LoadFriends"})
+                }
+              
+                
             </div>
         </div>
     </div>
-    @Html.ActionLink("Tillbaka till startsidan", "Index", "Home")
 </body>
 </html>
 
