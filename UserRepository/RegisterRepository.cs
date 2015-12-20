@@ -10,7 +10,7 @@ namespace Repositories
     {
         public static void Register(string firstname, string username, string gender, int age, string password)
         {
-            using (var context = new MainDbEntities())
+            using (var db = new MainDbEntities())
             {
                 User newUser = new User
                 {
@@ -20,8 +20,8 @@ namespace Repositories
                     Age = age,
                     Passsword = password,
                 };
-                context.Users.Add(newUser);
-                context.SaveChanges();
+                db.Users.Add(newUser);
+                db.SaveChanges();
             }
         }
     }

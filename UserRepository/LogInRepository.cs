@@ -11,9 +11,9 @@ namespace Repositories
     {
         public static User LogIn(string username, string password)
         {
-            using (var context = new MainDbEntities())
+            using (var db = new MainDbEntities())
             {
-                return context.Users.FirstOrDefault(
+                return db.Users.FirstOrDefault(
                     x => x.Username.Equals(username)
                     && x.Passsword.Equals(password));
 

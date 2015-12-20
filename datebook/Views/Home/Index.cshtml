@@ -1,5 +1,4 @@
-﻿@using Repositories
-@model datebook.Models.IndexModel
+﻿@model datebook.Models.IndexModel
 @{ViewBag.Title = "Index";}
 
 
@@ -15,35 +14,13 @@
         <div id="header">
             <h2 class="hTaggar">datebook.com</h2>
             <div id="Loggin">
-                @using (Html.BeginForm("Profile", "Home", FormMethod.Post)) { 
-                @Html.TextBoxFor(model => model.Username, new {placeholder = "Username"})
-                @Html.ValidationMessageFor(model => model.Username)
-                @Html.PasswordFor(model => model.Password, new {placeholder = "Password"})
-                @Html.ValidationMessageFor(model => model.Password)
-                <input type="submit" value="Log in"/>
-                @Html.Raw(TempData["Error"])
-                @Html.Raw(TempData["Succes"])
-                }
+              @Html.ActionLink("Log In", "LogIn", "Home")
             </div>
         </div>
         <div id="divPicture">
             <img src="@Url.Content("~/pictures/couple.jpg")" id="couplepic" />
             <div id="Create">
-                <h1> Join now!</h1>
-                @using (Html.BeginForm("Profile", "Home", FormMethod.Post)){
-                    @Html.TextBoxFor(model => model.Name, new { placeholder = "Firstname" })<br>
-                    @Html.TextBoxFor(model => model.RegUsername, new { placeholder = "Username" })
-                    @Html.ValidationMessageFor(model => model.RegUsername)<br>
-                    @Html.DropDownList("Gender", new List<SelectListItem> {
-                    new SelectListItem {Text = "Male", Value= "Male"},
-                    new SelectListItem {Text = "Female", Value= "Female"}
-                    }, "Select Gender")<br />
-                    @Html.TextBoxFor(model => model.Age, new { placeholder = "Age" })<br>
-                    @Html.PasswordFor(model => model.Password, new { placeholder = "Password" })
-                    @Html.ValidationMessageFor(model => model.Password)<br>
-                    <br />
-                    <input type="submit" value="Register">
-                }
+               <h1>@Html.ActionLink("Join now", "Register", "Home")</h1>
             </div>
             @*@<div id="pc"><img src="@Url.Content("~/pictures/pris.jpg")"><p>Cilla Chan, 30</p></div>
             <div id="mz"><img src="@Url.Content("~/pictures/Mark.jpg")"><p>Zack Markenberg, 31</p></div>*@

@@ -13,13 +13,11 @@ namespace datebook.Controllers
     {
         public ActionResult Index()
         {
-
             return View();
         }
         public ActionResult Profile()
         {
             var exampleProfile = new ProfileRepository();
-
             var profile = new ProfileModel
             {
                 Name = exampleProfile.GetFirst().Name,
@@ -28,40 +26,82 @@ namespace datebook.Controllers
                 Gender = exampleProfile.GetFirst().Gender
             };
 
-
             return View(profile);
         }
-        [HttpPost]
-        public ActionResult Register(IndexModel model)
+        [HttpGet]
+        public ActionResult LogIn()
         {
-            if (model != null && ModelState.IsValid)
-            {
 
-                RegisterRepository.Register(model.Name, model.RegUsername, model.Gender, model.Age, model.RegPassword);
-                return RedirectToAction("Profile", "Home");
-
-            }
-          
             return View();
 
         }
-
-      
         [HttpPost]
-        public ActionResult LogIn(IndexModel model)
+        public ActionResult LogIn(LogInModel user)
         {
-            var userLogging = LogInRepository.LogIn(model.Username, model.Password);
-
-            if (userLogging != null)
+            if(ModelState.IsValid)
             {
-                return RedirectToAction("Profile", "Home", new { username = User.Identity.Name });
-                TempData["Succes"] = "<script>alert('Welcome!');</script>"; 
+                if(IsValid(user.Username, user.Password))
+                {
+                    FormsAuthentication.SetAuthCookie(user.Username, false);
+                    return RedirectToAction("Profile", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invaild Login data");
+                }
+
+            }
+            return View(user);
+        }
+        public ActionResult Register()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Register(RegisterModel model)
+        {
+            if (ModelState.IsValid)
+            {
+               using (var db = new MainDbEntities())
+               {
+                   var user = db.Users.Create();
+                   user.Name = model.Name;
+                   user.Username = model.RegUsername;
+                   user.Age = model.Age;
+                   user.Gender = model.Gender;
+                   user.Passsword = model.RegPassword;
+                   db.Users.Add(user);
+                   db.SaveChanges();
+                   return RedirectToAction("Profile", "Home");
+               }
+
             }
             else
             {
-                TempData["Error"] = "<script>alert('Wrong username or password!');</script>";
-                return View();
+                ModelState.AddModelError("", "Incorrect data");
             }
+
+            return View();
+        }
+        private bool IsValid(string username, string password)
+        {
+            bool isValid = false;
+
+            using (var db = new MainDbEntities())
+            {
+                var user = db.Users.FirstOrDefault(u => u.Username == username);
+
+                if (user != null)
+                {
+                    if (user.Passsword == password)
+                    {
+                        isValid = true;
+                    }
+                }
+            }
+
+            return isValid;
         }
        
     }

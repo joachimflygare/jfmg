@@ -10,9 +10,9 @@ namespace Repositories
     {
         public User GetFirst()
         {
-            using (var context = new MainDbEntities())
+            using (var db = new MainDbEntities())
             {
-                return context.Users.FirstOrDefault();
+                return db.Users.FirstOrDefault();
             }
 
         }
