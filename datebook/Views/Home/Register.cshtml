@@ -17,6 +17,9 @@
     <div id="wrapper">
         <div id="header">
             <h2 class="hTaggar">datebook.com</h2>
+            <div id="IndexLoggin">
+                @Html.ActionLink("Log In", "LogIn", "Home", new { @id = "LogginLink" })
+            </div>
         </div>
         <div id="divPicture">
             <img src="@Url.Content("~/pictures/couple.jpg")" id="couplepic" />
@@ -24,17 +27,22 @@
                 <h1>Join now!</h1>
                 @using (Html.BeginForm())
                 {
-                    @Html.ValidationSummary(true, "Registration failed, please re-check the fields")
-                    @Html.TextBoxFor(model => model.Name, new { placeholder = "Firstname" })<br>
-                    @Html.TextBoxFor(model => model.RegUsername, new { placeholder = "Username" })
+                   <h3>@Html.ValidationSummary(true, "Registration failed, please re-check the fields")</h3>
+                    @Html.TextBoxFor(model => model.Name, new { @class = "RegisterBoxes" , placeholder = "Firstname" })<br>
+                    @Html.TextBoxFor(model => model.RegUsername, new { @class = "RegisterBoxes", placeholder = "Username" })
                     @Html.ValidationMessageFor(model => model.RegUsername)<br>
                     @Html.DropDownList("Gender", new List<SelectListItem> {
                     new SelectListItem {Text = "Male", Value= "Male"},
                     new SelectListItem {Text = "Female", Value= "Female"}
                     }, "Select Gender")<br />
-                    @Html.TextBoxFor(model => model.Age, new { placeholder = "Age" })<br>
-                    @Html.PasswordFor(model => model.RegPassword, new { placeholder = "Password" })
+                    @Html.TextBoxFor(model => model.Age, new { @class = "RegisterBoxes", placeholder = "Age" })<br>
+                    @Html.PasswordFor(model => model.RegPassword, new { @class = "RegisterBoxes", placeholder = "Password" })
                     @Html.ValidationMessageFor(model => model.RegPassword)<br>
+                    @Html.DropDownList("Visible", new List<SelectListItem> {
+                    new SelectListItem {Text = "Yes!", Value = "1"},
+                    new SelectListItem {Text = "No!", Value ="0"}
+                    }, "Visible for search?")
+                    <br />
                     <br />
                     <input type="submit" value="Register">
                 }

@@ -106,6 +106,17 @@ h3
     margin-top: -500px;
 }
 
+.RegisterBoxes
+{
+    margin: 2px;
+
+}
+
+.LogginBoxes
+{
+    margin: 3px;
+}
+
 #IndexLoggin
 {
     margin-top: 230px;

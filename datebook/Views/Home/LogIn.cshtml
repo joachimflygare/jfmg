@@ -17,18 +17,21 @@
             <h2 class="hTaggar">datebook.com</h2>
             <div id="Loggin">
                 @using (Html.BeginForm())
-                    { 
-                    @Html.ValidationSummary(true, "Login failed")
-                    @Html.TextBoxFor(model => model.Username, new { placeholder = "Username" })
+                {
+                    @Html.TextBoxFor(model => model.Username, new { @class = "LogginBoxes", placeholder = "Username" })
                     @Html.ValidationMessageFor(model => model.Username)
-                    @Html.PasswordFor(model => model.Password, new { placeholder = "Password" })
+                    @Html.PasswordFor(model => model.Password, new { @class = "LogginBoxes", placeholder = "Password" })
                     @Html.ValidationMessageFor(model => model.Password)
                     <input type="submit" value="Log In" />
+                    @Html.Raw(TempData["Error"])
                     }
             </div>
         </div>
         <div id="divPicture">
             <img src="@Url.Content("~/pictures/couple.jpg")" id="couplepic" />
+            <div id="IndexRegister">
+                @Html.ActionLink("Join now", "Register", "Home", new { @id = "RegisterLink" })
+            </div>
             <div id="Create">
                
             </div>

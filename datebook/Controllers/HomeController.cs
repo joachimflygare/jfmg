@@ -50,22 +50,22 @@ namespace datebook.Controllers
         }
 
         [HttpPost]
-        public ActionResult LogIn(LogInModel user)
+        public ActionResult LogIn(LogInModel model)
         {
             if(ModelState.IsValid)
             {
-                if(IsValid(user.Username, user.Password))
+                if (IsValid(model.Username, model.Password))
                 {
-                    FormsAuthentication.SetAuthCookie(user.Username, false);
+                    FormsAuthentication.SetAuthCookie(model.Username, false);
                     return RedirectToAction("Profile", "Home", new { username = User.Identity.Name });
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Invaild Login data");
+                    TempData["Error"] = "<script>alert('Login failed, please check your username and password');</script>";
                 }
 
             }
-            return View(user);
+            return View(model);
         }
 
         private bool IsValid(string username, string password)
@@ -88,6 +88,21 @@ namespace datebook.Controllers
             return isValid;
         }
 
+        private bool CheckUsername(string username)
+        {
+            using (var db = new MainDbEntities())
+            {
+                var usernameToCheck = db.Users.FirstOrDefault(x => x.Username.Equals(username));
+
+                if (usernameToCheck == null)
+                {
+                    return true;
+                }
+                return false;
+            }
+
+        }
+
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
@@ -103,32 +118,74 @@ namespace datebook.Controllers
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
+            Boolean boolVis;
             if (ModelState.IsValid)
             {
                using (var db = new MainDbEntities())
                {
-                   var user = db.Users.Create();
-                   user.Name = model.Name;
-                   user.Username = model.RegUsername;
-                   user.Age = model.Age;
-                   user.Gender = model.Gender;
-                   user.Passsword = model.RegPassword;
-                   db.Users.Add(user);
-                   db.SaveChanges();
-                   return RedirectToAction("Profile", "Home");
+                   if (CheckUsername(model.RegUsername))
+                   {
+                       var user = db.Users.Create();
+                       user.Name = model.Name;
+                       user.Username = model.RegUsername;
+                       user.Age = model.Age;
+                       user.Gender = model.Gender;
+                       user.Passsword = model.RegPassword;
+                       if (model.Visible == 0)
+                           boolVis = false;
+                       else
+                           boolVis = true;
+                       user.Visible = boolVis;
+                       db.Users.Add(user);
+                       db.SaveChanges();
+                       return RedirectToAction("LogIn", "Home", new { username = User.Identity.Name });
+                   }
+
+                   else TempData["Error"] = "<script>alert('Error, username already taken');</script>";
+                   return RedirectToAction("Register", "Home");
                }
 
-            }
-            else
-            {
-                ModelState.AddModelError("", "Incorrect data");
             }
 
             return View();
         }
 
-        public ActionResult Edit()
+        public ActionResult Edit() 
         {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Edit(EditModel model)
+        {
+            Boolean boolVis;
+                using (var db = new MainDbEntities())
+                {
+                    var user = db.Users.FirstOrDefault(u => u.Username.Equals(model.Username));
+
+                    if(CheckUsername(model.Username))
+                    {
+                            
+                            user.Name = model.Name;
+                            user.Username = model.Username;
+                            user.Gender = model.Gender;
+                            user.Age = model.Age;
+                            user.Info = model.Info;
+                            if (model.Visible == 0)
+                                boolVis = false;
+                            else
+                                boolVis = true;
+                            user.Visible = boolVis;
+                            user.Passsword = model.Password;
+                            db.SaveChanges();
+                   
+                    }
+                    else
+                    TempData["Error"] = "<script>alert('Error, please check your input');</script>";
+
+                 }
+       
+
             return View();
         }
 

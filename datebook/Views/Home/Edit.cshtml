@@ -40,14 +40,15 @@
                     @Html.TextAreaFor(model => model.Info, new { placeholder = "Info", @id ="EditBox"})<br>
                     <br />
                     @Html.DropDownList("Visible", new List<SelectListItem> {
-                    new SelectListItem {Text = "Visible for search", Value = "1"},
-                    new SelectListItem {Text = "Not visible for search", Value ="2"}
+                    new SelectListItem {Text = "Yes!", Value = "1"},
+                    new SelectListItem {Text = "No!", Value ="2"}
                     }, "Visible for search?")<br />
                     <br />
                     @Html.PasswordFor(model => model.Password, new { placeholder = "Password"})
                     @Html.ValidationMessageFor(model => model.Password)<br>
                     <br />
                     <input type="submit" value="Change">
+                    @Html.Raw(TempData["Error"])
                 }
             </div>
             @*@<div id="pc"><img src="@Url.Content("~/pictures/pris.jpg")"><p>Cilla Chan, 30</p></div>
