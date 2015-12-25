@@ -183,17 +183,27 @@ h3
 
 #friendsDiv
 {
-    margin-top: -400px;
-    margin-left: 1050px;
+    margin-top: -420px;
+    margin-left: 1080px;
     height: 200px;
     width: 300px;
+    font-style: italic;
+    font-size: 20px;
 }
 
 #LoadFriends
 {
+    font-size: 27px;
     font-style: italic;
-    font-size: 30px;
+    font-weight: bold;  
     
+}
+
+#h1Back
+{
+    font-size: 27px;
+    font-style: italic;
+    font-weight: bold;
 }
 
 

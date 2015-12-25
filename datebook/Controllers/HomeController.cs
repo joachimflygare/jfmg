@@ -28,8 +28,9 @@ namespace datebook.Controllers
             {
                 username = User.Identity.Name;
             }
-
             var getProfile = ProfileRepository.GetProfile(username);
+            var loggedIn = ProfileRepository.GetProfile(User.Identity.Name);
+
             var model = new ProfileModel();
             model.Username = username;
             model.Name = getProfile.Name;
@@ -37,6 +38,8 @@ namespace datebook.Controllers
             model.Gender = getProfile.Gender;
             model.Info = getProfile.Info;
             model.visible = getProfile.Visible.Value;
+
+            ViewBag.CurrentUser = loggedIn.Username;
 
             return View(model);
         }
@@ -115,8 +118,14 @@ namespace datebook.Controllers
         {
             var profile = ProfileRepository.GetProfile(User.Identity.Name);
             List<Friends> friendList = FriendRepository.GetFriends(profile.UserId);
+            List<Users> profileList = new List<Users>();
 
-            ViewBag.Friends = friendList;
+            foreach (var friend in friendList)
+            {
+                profileList.Add(ProfileRepository.GetProfileByID(friend.FriendId));
+            }
+
+            ViewBag.Friend = profileList;
 
             return View();
 

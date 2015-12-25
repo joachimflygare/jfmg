@@ -26,20 +26,15 @@
         <div id="divPicture">
             <img src="@Url.Content("~/pictures/couple.jpg")" id="couplepic" />
             <div id="infoDiv">
-                <h1>@Html.ActionLink("Back to profile", "Profile", "Home")</h1>
+                <h1>@Html.ActionLink("Back to profile", "Profile", "Home", new { @id = "h1Back" })</h1>
             </div>
 
             <div id="friendsDiv">
-                @foreach (var friend in ViewBag.Friends) 
+                <h1>Friends</h1>
+                @foreach (var friend in ViewBag.Friend) 
                 {
-                    
-                    
-                        if (friend.userId.Username == ViewBag.CurrentUser)
-                        { 
-                            <h3>@Html.ActionLink((string)friend.User1.Username, "Profile", "Home", new { username = friend.User1.Username })</h3>
-                        }
+                <h2>@Html.ActionLink((string)friend.Username, "Profile", "Home", new { username = @friend.Username }, null)</h2>  
                 }
-                    
             </div>
         </div>
     </div>

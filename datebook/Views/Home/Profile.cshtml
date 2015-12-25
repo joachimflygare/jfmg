@@ -26,7 +26,7 @@
         <div id="divPicture">
             <img src="@Url.Content("~/pictures/couple.jpg")" id="couplepic" />
             <div id="infoDiv">
-                    <p>Logged in as: @Model.Username</p>
+                    
                     <br />
                     <p>Name: @Model.Name</p>
                     <p>Age: @Model.Age</p>
@@ -42,16 +42,23 @@
                     <p>Visible for search: @Model.visible</p>
                     <br />
                     <br />
+                    @if(@Model.Username == ViewBag.CurrentUser)
+                    { 
                     @Html.ActionLink("Edit information", "Edit", "Home", new { @id = "Edit" })
+                    }
             </div>
       
             <div id="friendsDiv">
-                @if (Request.IsAuthenticated)
+                @if (@Model.Username != ViewBag.CurrentUser)
+                {
+                    @Html.ActionLink("Back to profile", "Profile", "Home", new {username = ViewBag.CurrentUser} , new { @id ="LoadFriends"})
+                }
+                else                 
                 {
                     @Html.ActionLink("Click to load friends", "Friend", "Home", new { @id ="LoadFriends"})
                 }
-              
-                
+
+
             </div>
         </div>
     </div>
