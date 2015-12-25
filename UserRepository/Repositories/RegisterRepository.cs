@@ -8,36 +8,40 @@ namespace Repositories
 {
     public class RegisterRepository
     {
-
         public static bool CheckUsername(string username)
         {
             using (var db = new MainDbEntities())
             {
-                var usernameToCheck = db.Users.FirstOrDefault(x => x.Username.Equals(username));
+                var name = db.Users.FirstOrDefault(x => x.Username.Equals(username));
 
-                if (usernameToCheck == null)
+                if (name == null)
                 {
-                    return false;
+                    return true;
                 }
-                return true;
+                return false;
             }
 
         }
 
-        public static void Register(string firstname, string username, string gender, int age, string password)
+        public static void Register(string name, string username, string gender, int age,int visible, string password)
         {
+            Boolean boolVis;
             using (var db = new MainDbEntities())
-            {
-                Users newUser = new Users
-                {
-                    Name = firstname,
-                    Username = username,
-                    Gender = gender,
-                    Age = age,
-                    Passsword = password,
-                };
-                db.Users.Add(newUser);
-                db.SaveChanges();
+               {
+                    var user = db.Users.Create();
+                    user.Name = name;
+                    user.Username = username;
+                    user.Gender = gender;
+                    user.Age = age;
+                    user.Passsword = password;
+                    if (visible == 0)
+                        boolVis = false;
+                    else
+                        boolVis = true;
+                    user.Visible = boolVis;
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                      
             }
         }
     }

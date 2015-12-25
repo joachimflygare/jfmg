@@ -1,0 +1,51 @@
+﻿@model datebook.Models.FriendModel
+
+@{
+    ViewBag.Title = "Friend";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title -Datebook.com</title>
+    <link href="@Url.Content("~/Content/main.css")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="wrapper">
+        <div id="header">
+            @if (Request.IsAuthenticated)
+            {
+                @Html.ActionLink("Log out", "LogOut", "Home", new { @id = "LogOut" })
+            }
+            <h2 class="hTaggar">datebook.com</h2>
+            <div id="IndexLoggin">
+            </div>
+        </div>
+        <div id="divPicture">
+            <img src="@Url.Content("~/pictures/couple.jpg")" id="couplepic" />
+            <div id="infoDiv">
+                <h1>@Html.ActionLink("Back to profile", "Profile", "Home")</h1>
+            </div>
+
+            <div id="friendsDiv">
+                @foreach (var friend in ViewBag.Friends) 
+                {
+                    
+                    
+                        if (friend.userId.Username == ViewBag.CurrentUser)
+                        { 
+                            <h3>@Html.ActionLink((string)friend.User1.Username, "Profile", "Home", new { username = friend.User1.Username })</h3>
+                        }
+                }
+                    
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+

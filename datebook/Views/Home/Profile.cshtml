@@ -42,13 +42,13 @@
                     <p>Visible for search: @Model.visible</p>
                     <br />
                     <br />
-                    @Html.ActionLink("Edit information", "Edit", "Home", new {@id = "Edit" })
+                    @Html.ActionLink("Edit information", "Edit", "Home", new { @id = "Edit" })
             </div>
       
             <div id="friendsDiv">
                 @if (Request.IsAuthenticated)
                 {
-                    @Html.ActionLink("Click to load friends", "Friends", "Home", new { @id ="LoadFriends"})
+                    @Html.ActionLink("Click to load friends", "Friend", "Home", new { @id ="LoadFriends"})
                 }
               
                 

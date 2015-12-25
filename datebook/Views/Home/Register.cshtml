@@ -28,16 +28,16 @@
                 @using (Html.BeginForm())
                 {
                    <h3>@Html.ValidationSummary(true, "Registration failed, please re-check the fields")</h3>
-                    @Html.TextBoxFor(model => model.Name, new { @class = "RegisterBoxes" , placeholder = "Firstname" })<br>
-                    @Html.TextBoxFor(model => model.RegUsername, new { @class = "RegisterBoxes", placeholder = "Username" })
-                    @Html.ValidationMessageFor(model => model.RegUsername)<br>
+                    @Html.TextBoxFor(model => model.Name, new { @class = "RegisterBoxes" , placeholder = "Name" })<br>
+                    @Html.TextBoxFor(model => model.Username, new { @class = "RegisterBoxes", placeholder = "Username" })
+                    @Html.ValidationMessageFor(model => model.Username)<br>
                     @Html.DropDownList("Gender", new List<SelectListItem> {
                     new SelectListItem {Text = "Male", Value= "Male"},
                     new SelectListItem {Text = "Female", Value= "Female"}
                     }, "Select Gender")<br />
                     @Html.TextBoxFor(model => model.Age, new { @class = "RegisterBoxes", placeholder = "Age" })<br>
-                    @Html.PasswordFor(model => model.RegPassword, new { @class = "RegisterBoxes", placeholder = "Password" })
-                    @Html.ValidationMessageFor(model => model.RegPassword)<br>
+                    @Html.PasswordFor(model => model.Password, new { @class = "RegisterBoxes", placeholder = "Password" })
+                    @Html.ValidationMessageFor(model => model.Password)<br>
                     @Html.DropDownList("Visible", new List<SelectListItem> {
                     new SelectListItem {Text = "Yes!", Value = "1"},
                     new SelectListItem {Text = "No!", Value ="0"}

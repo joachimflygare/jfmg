@@ -10,7 +10,8 @@ namespace Repositories
     {
           public static Users GetProfile(string username)
         {
-            using (var db = new MainDbEntities()) {
+            using (var db = new MainDbEntities()) 
+            {
                 var user = db.Users.FirstOrDefault(x => x.Username.Equals(username));
                 return user;
             }
