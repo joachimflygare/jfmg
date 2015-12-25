@@ -34,11 +34,6 @@
                     <p>Info: @Model.Info</p>
                     <br />
                     <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
                     <p>Visible for search: @Model.visible</p>
                     <br />
                     <br />
@@ -48,7 +43,7 @@
                     }
             </div>
       
-            <div id="friendsDiv">
+            <div id="loadFriendsDiv">
                 @if (@Model.Username != ViewBag.CurrentUser)
                 {
                     @Html.ActionLink("Back to profile", "Profile", "Home", new {username = ViewBag.CurrentUser} , new { @id ="LoadFriends"})
@@ -59,6 +54,13 @@
                 }
 
 
+            </div>
+            <div id="postDiv">
+                <textarea id="taPost" maxlength="150"></textarea>
+                <input type="button" value="Post">
+            </div>
+            <div id="wallDiv">
+                <p>WallDiv</p>
             </div>
         </div>
     </div>
