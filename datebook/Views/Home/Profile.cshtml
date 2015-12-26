@@ -20,6 +20,16 @@
                 @Html.ActionLink("Log out", "LogOut", "Home", new { @id = "LogOut" })
             }
             <h2 class="hTaggar">datebook.com</h2>
+            <div id="loadFriendsDiv">
+                @if (@Model.Username != ViewBag.CurrentUser)
+                {
+                    @Html.ActionLink("Profile", "Profile", "Home", new { username = ViewBag.CurrentUser }, new { @id = "h1Back" })
+                }
+                else
+                {
+                    @Html.ActionLink("Friends", "Friend", "Home", new { @id = "h1Back" })
+                }
+            </div>
             <div id="IndexLoggin">
             </div>
         </div>
@@ -41,19 +51,6 @@
                     { 
                     @Html.ActionLink("Edit information", "Edit", "Home", new { @id = "Edit" })
                     }
-            </div>
-      
-            <div id="loadFriendsDiv">
-                @if (@Model.Username != ViewBag.CurrentUser)
-                {
-                    @Html.ActionLink("Back to profile", "Profile", "Home", new {username = ViewBag.CurrentUser} , new { @id ="LoadFriends"})
-                }
-                else                 
-                {
-                    @Html.ActionLink("Click to load friends", "Friend", "Home", new { @id ="LoadFriends"})
-                }
-
-
             </div>
             <div id="postDiv">
                 <textarea id="taPost" maxlength="150"></textarea>

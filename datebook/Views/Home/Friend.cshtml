@@ -20,15 +20,15 @@
                 @Html.ActionLink("Log out", "LogOut", "Home", new { @id = "LogOut" })
             }
             <h2 class="hTaggar">datebook.com</h2>
+            <div id="backToProfileDiv">
+                <h1>@Html.ActionLink("Profile", "Profile", "Home", new { @id = "h1Back" })</h1>
+            </div>
+
             <div id="IndexLoggin">
             </div>
         </div>
         <div id="divPicture">
             <img src="@Url.Content("~/pictures/couple.jpg")" id="couplepic" />
-            <div id="backToProfileDiv">
-                <h1>@Html.ActionLink("Back to profile", "Profile", "Home", new { @id = "h1Back" })</h1>
-            </div>
-
             <div id="friendsDiv">
                 <h1>Friends</h1>
                 @foreach (var friend in ViewBag.Friend) 
