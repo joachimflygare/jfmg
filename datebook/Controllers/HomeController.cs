@@ -7,6 +7,8 @@ using Repositories;
 using datebook.Models;
 using System.Web.Security;
 using Repositories.Repositories;
+using System.Web.Script.Serialization;
+
 
 namespace datebook.Controllers
 {
@@ -15,6 +17,26 @@ namespace datebook.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult SearchProfile()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SearchProfile(SearchModel model)
+        {
+            var user = SearchRepository.Search(model.SearchString);
+            if (user != null)
+            {
+                ViewData["Result"] = user.Username;
+                return View();
+            }
+
+            else { TempData["Error"] = "<script>alert('No person by that name was found');</script>"; }
+            return RedirectToAction("SearchProfile", "Home");
+           
         }
 
         public ActionResult Profile(string username)
@@ -40,7 +62,6 @@ namespace datebook.Controllers
             model.visible = getProfile.Visible.Value;
 
             ViewBag.CurrentUser = loggedIn.Username;
-
             return View(model);
         }
 
@@ -133,6 +154,5 @@ namespace datebook.Controllers
 
     }
         
-       
-    }
+}
 

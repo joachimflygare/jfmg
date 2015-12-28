@@ -62,9 +62,36 @@ h3
 
 #searchDiv
 {
-    margin-top: -260px;
+    margin-top: -265px;
     margin-left: 970px;
     
+}
+
+#btnSearch
+{
+    margin-left: 5px;
+    width: 100px;
+    height: 25px;
+    border-radius: 5px;
+}
+
+#searchResultDiv
+{
+    z-index: 2;
+    margin-top: -560px;
+    margin-left: 965px;
+    height: 100px;
+    width: 350px;
+    font-style: italic;
+    font-size: 20px;
+    position: absolute;
+    opacity: 1;
+    border-radius: 20px;
+}
+
+#searchResult
+{
+    font-size: 44px;
 }
 
 #divPicture
@@ -232,7 +259,7 @@ h3
 
 }
 
-#h1Back
+#linkStyles
 {
     font-size: 27px;
     font-style: italic;
@@ -264,7 +291,6 @@ h3
 textarea{
     color: #ff0000;
 }
-
 
 #wallDiv
 {

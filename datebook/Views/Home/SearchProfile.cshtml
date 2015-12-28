@@ -1,7 +1,7 @@
-﻿@model datebook.Models.FriendModel
+﻿@model datebook.Models.SearchModel
 
 @{
-    ViewBag.Title = "Friend";
+    ViewBag.Title = "SearchProfile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,6 +11,7 @@
     <meta charset="utf-8" />
     <title>@ViewBag.Title -Datebook.com</title>
     <link href="@Url.Content("~/Content/main.css")" rel="stylesheet" type="text/css" />
+
 </head>
 <body>
     <div id="wrapper">
@@ -25,21 +26,27 @@
             </div>
             <div id="IndexLoggin">
             </div>
+            <div id="searchDiv">
+                @using (Html.BeginForm("SearchProfile", "Home"))
+                {
+                    @Html.ValidationSummary(true, "Error field cannot be empty")
+                    @Html.TextBoxFor(model => model.SearchString)
+                    <input type="submit" id="btnSearch" value="Search" />
+                    @Html.Raw(TempData["Error"])
+                }
+            </div>
         </div>
         <div id="divPicture">
             <img src="@Url.Content("~/pictures/couple.jpg")" id="couplepic" />
-            <div id="friendsDiv">
-                <h1>Friends</h1>
-                @foreach (var friend in ViewBag.Friend) 
+            <div id="searchResultDiv">
+                @if (ViewData["Result"] != null)
                 {
-                <h2>@Html.ActionLink((string)friend.Username, "Profile", "Home", new { username = @friend.Username }, null)</h2>  
+                    <h1>Result: @Html.ActionLink((string)ViewData["Result"], "Profile", "Home", new { username = ViewData["Result"] }, new {@id = "searchResult" })</h1>
                 }
             </div>
         </div>
     </div>
 </body>
 </html>
-
-
 
 

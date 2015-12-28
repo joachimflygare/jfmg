@@ -1,6 +1,5 @@
 ﻿@model datebook.Models.ProfileModel
-
-@{
+@{  
     ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -11,6 +10,7 @@
     <meta charset="utf-8" />
     <title>@ViewBag.Title -Datebook.com</title>
     <link href="@Url.Content("~/Content/main.css")" rel="stylesheet" type="text/css" />
+
 </head>
 <body>
     <div id="wrapper">
@@ -23,17 +23,17 @@
             <div id="loadFriendsDiv">
                 @if (@Model.Username != ViewBag.CurrentUser)
                 {
-                    @Html.ActionLink("Profile", "Profile", "Home", new { username = ViewBag.CurrentUser }, new { @id = "h1Back" })
+                    @Html.ActionLink("Profile", "Profile", "Home", new { username = ViewBag.CurrentUser }, new { @id = "linkStyles" })
                 }
                 else
                 {
-                    @Html.ActionLink("Friends", "Friend", "Home", new { @id = "h1Back" })
+                    @Html.ActionLink("Friends", "Friend", "Home", new { @id = "linkStyles" })
                 }
             </div>
             <div id="IndexLoggin">
             </div>
             <div id="searchDiv">
-                  <input type="text" name="username" value="Search for profile" onkeyup="filter(this.value);" />
+               @Html.ActionLink("Search for a profile", "SearchProfile", "Home", new { @id = "linkStyles" })
             </div>
         </div>
         <div id="divPicture">
@@ -66,23 +66,6 @@
     </div>
 </body>
 </html>
-
-<script>
-    function filter(value) {
-        $.ajax({
-            type: "POST",
-            url: '@Url.Action("profile", "Home")',
-            data: {
-                username: value
-            },
-            cache: false,
-            success: function (result) {
-            }
-        });
-    }
-</script>
-
-
 
 
 
