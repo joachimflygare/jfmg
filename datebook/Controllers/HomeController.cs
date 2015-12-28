@@ -62,6 +62,12 @@ namespace datebook.Controllers
             model.visible = getProfile.Visible.Value;
 
             ViewBag.CurrentUser = loggedIn.Username;
+
+            if (FriendRepository.Relation(loggedIn.UserId, getProfile.UserId))
+                ViewData["Friends"] = true;
+            else
+                ViewData["Friends"] = false;
+
             return View(model);
         }
 

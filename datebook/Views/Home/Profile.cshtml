@@ -40,7 +40,6 @@
             <img src="@Url.Content("~/pictures/couple.jpg")" id="couplepic" />
             <div id="infoDiv">
                     
-                    <br />
                     <p>Name: @Model.Name</p>
                     <p>Age: @Model.Age</p>
                     <p>Gender: @Model.Gender</p>
@@ -49,10 +48,17 @@
                     <br />
                     <p>Visible for search: @Model.visible</p>
                     <br />
-                    <br />
                     @if(@Model.Username == ViewBag.CurrentUser)
                     { 
                     @Html.ActionLink("Edit information", "Edit", "Home", new { @id = "Edit" })
+                    }
+                    else if((bool)ViewData["Friends"] == true)
+                    {   
+                       <p>Friends with @Model.Username</p>
+                    }
+                    else
+                    {
+                        <p>Send friend request</p>
                     }
             </div>
             <div id="postDiv">

@@ -10,11 +10,15 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-   
+
     @RenderBody()
-
-
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
+    @if (User.Identity.IsAuthenticated)
+    {
+    <div id="friendRequestDiv">
+        @Html.ActionLink("Friend request(0)", "Friend", "Home")
+    </div>
+    }
 </body>
 </html>

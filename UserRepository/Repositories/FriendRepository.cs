@@ -24,5 +24,18 @@ namespace Repositories.Repositories
             }
         }
 
+        public static Boolean Relation(int userid, int friendId)
+        {
+            Boolean friends = false;
+
+            using (var db = new MainDbEntities())
+            {
+                if (db.Friends.FirstOrDefault(x => (x.FriendId == friendId && x.UserId == userid) || (x.UserId == friendId && x.FriendId == userid)) != null)
+                    friends = true;
+
+                return friends;
+            }
+        }
+
     }
 }
