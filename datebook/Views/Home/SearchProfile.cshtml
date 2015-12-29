@@ -26,6 +26,9 @@
             </div>
             <div id="IndexLoggin">
             </div>
+            <div id="friendLinkDiv">
+                <h1>@Html.ActionLink("Friends", "Friend", "Home", new { @id = "linkStyles" })</h1>
+            </div>
             <div id="searchDiv">
                 @using (Html.BeginForm("SearchProfile", "Home"))
                 {

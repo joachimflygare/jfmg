@@ -25,6 +25,9 @@
             </div>
             <div id="IndexLoggin">
             </div>
+            <div id="searchLinkDiv">
+                @Html.ActionLink("Search for a profile", "SearchProfile", "Home", new { @id = "linkStyles" })
+            </div>
         </div>
         <div id="divPicture">
             <img src="@Url.Content("~/pictures/couple.jpg")" id="couplepic" />

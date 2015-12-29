@@ -32,8 +32,14 @@
             </div>
             <div id="IndexLoggin">
             </div>
-            <div id="searchDiv">
+            <div id="searchLinkDiv">
                @Html.ActionLink("Search for a profile", "SearchProfile", "Home", new { @id = "linkStyles" })
+            </div>
+            <div id="editLinkDiv">
+                @if (@Model.Username == ViewBag.CurrentUser)
+                {
+                    @Html.ActionLink("Edit profile", "Edit", "Home", new { @id = "linkStyles" })
+                }
             </div>
         </div>
         <div id="divPicture">
@@ -48,15 +54,11 @@
                     <br />
                     <p>Visible for search: @Model.visible</p>
                     <br />
-                    @if(@Model.Username == ViewBag.CurrentUser)
-                    { 
-                    @Html.ActionLink("Edit information", "Edit", "Home", new { @id = "Edit" })
+                    @if((bool)ViewData["Friends"] == true)
+                    {
+                        <p>Friends with @Model.Username</p>
                     }
-                    else if((bool)ViewData["Friends"] == true)
-                    {   
-                       <p>Friends with @Model.Username</p>
-                    }
-                    else
+                    else if((bool)ViewData["Friends"] == false)
                     {
                         <p>Send friend request</p>
                     }
