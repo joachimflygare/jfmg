@@ -76,7 +76,7 @@ h3
 #editLinkDiv
 {
     margin-left: 660px;
-    margin-top: -30px;
+    margin-top: -38px;
 }
 
 #btnSearch
@@ -294,6 +294,13 @@ h3
     height: 30px;
     width: 180px;
     margin-top: -670px
+}
+
+#acceptFriendLink
+{
+    font-size: 18px;
+    text-decoration: underline;
+    font-style: italic;
 }
 
 #linkStyles

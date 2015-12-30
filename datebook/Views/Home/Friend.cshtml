@@ -35,11 +35,19 @@
                 <h1>Friends</h1>
                 @foreach (var friend in ViewBag.Friend) 
                 {
-                <h2>@Html.ActionLink((string)friend.Username, "Profile", "Home", new { username = @friend.Username }, null)</h2>  
+                    if (friend.Users.Username == ViewBag.CurrentUser)
+                    {<h2>@Html.ActionLink((string)friend.Users1.Username, "Profile", "Home", new { username = friend.Users1.Username },null)</h2>}
+                    else{<h2>@Html.ActionLink((string)friend.Users.Username, "Profile", "Home", new { username = friend.Users.Username },null)</h2>}
                 }
             </div>
             <div id="pendingDiv">
                 <h1>Pending request</h1>
+                @foreach (var friend in ViewBag.Request)
+                {
+                    if (friend.Users.Username == ViewBag.CurrentUser)
+                    {<h2>@Html.ActionLink((string)friend.Users1.Username, "Profile", "Home", new { username = friend.Users1.Username }, null)</h2>}
+                    else{<h2>@Html.ActionLink((string)friend.Users.Username, "Profile", "Home", new { username = friend.Users.Username }, null)</h2>}
+                }
             </div>
         </div>
     </div>

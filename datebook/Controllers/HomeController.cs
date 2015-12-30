@@ -62,11 +62,7 @@ namespace datebook.Controllers
             model.visible = getProfile.Visible.Value;
 
             ViewBag.CurrentUser = loggedIn.Username;
-
-            if (FriendRepository.Relation(loggedIn.UserId, getProfile.UserId))
-                ViewData["Friends"] = true;
-            else
-                ViewData["Friends"] = false;
+            ViewBag.Relation = FriendRepository.Relation(loggedIn.UserId, getProfile.UserId);
 
             return View(model);
         }
@@ -140,22 +136,41 @@ namespace datebook.Controllers
                 TempData["Error"] = "<script>alert('Error, please re-check your input');</script>";
             return RedirectToAction("Edit", "Home");
         }
-       
+
         public ActionResult Friend()
         {
             var profile = ProfileRepository.GetProfile(User.Identity.Name);
             List<Friends> friendList = FriendRepository.GetFriends(profile.UserId);
-            List<Users> profileList = new List<Users>();
+            List<Friends> requestList = FriendRepository.GetRequests(profile.UserId);
 
-            foreach (var friend in friendList)
-            {
-                profileList.Add(ProfileRepository.GetProfileByID(friend.FriendId));
-            }
-
-            ViewBag.Friend = profileList;
+            ViewBag.Friend = friendList;
+            ViewBag.Request = requestList;
 
             return View();
 
+        }
+
+        public ActionResult AddFriend(string name)
+        {
+            var friendEntity = new Friends();
+            var loggedInProfile = ProfileRepository.GetProfile(User.Identity.Name);
+            var friendProfile = ProfileRepository.GetProfile(name);
+
+            friendEntity.Accepted = false;
+            friendEntity.UserId = loggedInProfile.UserId;
+            friendEntity.FriendId = friendProfile.UserId;
+
+
+            FriendRepository.AddFriend(friendEntity);
+
+            return RedirectToAction("Profile", "Home");
+        }
+
+        public ActionResult AcceptFriend(string userId, string friendId)
+        {
+            FriendRepository.AcceptFriend(int.Parse(userId), int.Parse(friendId));
+
+            return RedirectToAction("Profile", "Home");
         }
 
     }

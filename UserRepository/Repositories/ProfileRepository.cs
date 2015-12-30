@@ -16,6 +16,7 @@ namespace Repositories
                 return user;
             }
         }
+
           public static Users GetProfileByID(int? userId)
           {
               using (var db = new MainDbEntities())
