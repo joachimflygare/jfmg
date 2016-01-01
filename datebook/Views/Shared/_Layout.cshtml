@@ -1,4 +1,4 @@
-﻿
+﻿@using datebook
 
 <!DOCTYPE html>
 <html>
@@ -10,15 +10,20 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+    @if (User.Identity.IsAuthenticated)
+    {
+        ChildActionExtensions.RenderAction(Html, "PendingRequests", "Home", new { username = User.Identity.Name });
+        <div id="friendRequestDiv">
+            @if (ViewBag.Request != null)
+            {
+                @Html.ActionLink("[" + (int)ViewBag.Request + "]", "Friend", "Home")
+            }
+        </div>
+    }
 
     @RenderBody()
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
-    @if (User.Identity.IsAuthenticated)
-    {
-    <div id="friendRequestDiv">
-        @Html.ActionLink("Friend request(0)", "Friend", "Home")
-    </div>
-    }
+   
 </body>
 </html>

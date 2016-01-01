@@ -33,11 +33,17 @@
             <img src="@Url.Content("~/pictures/couple.jpg")" id="couplepic" />
             <div id="friendsDiv">
                 <h1>Friends</h1>
-                @foreach (var friend in ViewBag.Friend) 
+                @foreach (var friend in ViewBag.Friend)
                 {
-                    if (friend.Users.Username == ViewBag.CurrentUser)
-                    {<h2>@Html.ActionLink((string)friend.Users1.Username, "Profile", "Home", new { username = friend.Users1.Username },null)</h2>}
-                    else{<h2>@Html.ActionLink((string)friend.Users.Username, "Profile", "Home", new { username = friend.Users.Username },null)</h2>}
+                   
+                    if (friend.Users.Username == ViewBag.CurrentUser || friend.Users.Username == null)
+                    {
+                       <h2>@Html.ActionLink((string)friend.Users1.Username, "Profile", "Home", new { username = friend.Users1.Username },null)</h2>
+                    }
+                    else
+                    {
+                        <h2>@Html.ActionLink((string)friend.Users.Username, "Profile", "Home", new { username = friend.Users.Username },null)</h2>
+                    }
                 }
             </div>
             <div id="pendingDiv">

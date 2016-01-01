@@ -67,14 +67,14 @@ namespace Repositories.Repositories
             }
         }
 
-        //public static int PendingRequest(int userId)
-        //{
-        //    using (var db = new MainDbEntities())
-        //    {
-        //        int count = db.Friends.Count(friend => friend.FriendId == userId && !friend.Accepted);
+        public static int GetPending(int? userId)
+        {
+            using (var db = new MainDbEntities())
+            {
+                int pendningRequests = db.Friends.Count(x => x.FriendId == userId && !x.Accepted);
 
-        //        return count;
-        //    }
-        //}
+                return pendningRequests;
+            }
+        }
     }
 }
