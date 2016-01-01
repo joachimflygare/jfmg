@@ -30,7 +30,6 @@ namespace Repositories.Repositories
                     .ToList();
 
                 return friends;
-
             }
         }
 

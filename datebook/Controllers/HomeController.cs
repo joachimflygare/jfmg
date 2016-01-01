@@ -142,9 +142,10 @@ namespace datebook.Controllers
             var profile = ProfileRepository.GetProfile(User.Identity.Name);
             List<Friends> friendList = FriendRepository.GetFriends(profile.UserId);
             List<Friends> requestList = FriendRepository.GetRequests(profile.UserId);
-
+            
             ViewBag.Friend = friendList;
             ViewBag.Request = requestList;
+            ViewBag.CurrentUser = profile.Username;
 
             return View();
 

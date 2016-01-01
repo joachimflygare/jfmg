@@ -53,13 +53,13 @@
                     <br />
                     <p>Visible for search: @Model.visible</p>
                     <br />
-                    @if (@Model.Username == ViewBag.CurrentUser)
-                    {}
-                    else if(ViewBag.Relation != null && ViewBag.Relation.Accepted)
+                    @if(ViewBag.Relation != null && ViewBag.Relation.Accepted)
                     {<p>Friends with @Model.Username</p>}
-                    else if(ViewBag.Relation != null && !ViewBag.Relation.Accepted)
+                    else if (ViewBag.Relation != null && ViewBag.Relation.UserId == @Model.UserId && !ViewBag.Relation.Accepted)
                     { @Html.ActionLink("Accept friend", "AcceptFriend", "Home", new {userId = ViewBag.Relation.UserId, friendId = ViewBag.Relation.FriendId}, new { @id = "acceptFriendLink"})}
-                    else {@Html.ActionLink("Friend request!", "AddFriend", "Home", new { name = @Model.Username }, new { onclick = "return Confirmation()"})}
+                    else if (ViewBag.CurrentUser != @Model.Username && ViewBag.Relation == null)
+                    {@Html.ActionLink("Friend request!", "AddFriend", "Home", new { name = @Model.Username }, new { onclick = "return Confirmation()"})}
+                    else{}                                                                                                                                   
                     <br />
             </div>
             <div id="postDiv">
