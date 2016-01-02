@@ -1,4 +1,6 @@
 ﻿@model datebook.Models.ProfileModel
+@using Repositories.Repositories
+
 @{  
     ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -19,7 +21,7 @@
             {
                 @Html.ActionLink("Log out", "LogOut", "Home", new { @id = "LogOut" })
             }
-            <h2 class="hTaggar">datebook.com</h2>
+            <h2>@Html.ActionLink("datebook.com", "Index", "Home", new {@class = "hTaggar"})</h2>
             <div id="loadFriendsDiv">
                 @if (@Model.Username != ViewBag.CurrentUser)
                 {
@@ -29,8 +31,6 @@
                 {
                     @Html.ActionLink("Friends", "Friend", "Home", new { @id = "linkStyles" })
                 }
-            </div>
-            <div id="IndexLoggin">
             </div>
             <div id="searchLinkDiv">
                @Html.ActionLink("Search for a profile", "SearchProfile", "Home", new { @id = "linkStyles" })

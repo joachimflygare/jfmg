@@ -14,7 +14,7 @@
 <body>
     <div id="wrapper">
         <div id="header">
-            <h2 class="hTaggar">datebook.com</h2>
+            <h2>@Html.ActionLink("datebook.com", "Index", "Home", new { @class = "hTaggar" })</h2>
             <div id="Loggin">
                 @using (Html.BeginForm())
                 {
@@ -29,11 +29,23 @@
         </div>
         <div id="divPicture">
             <img src="@Url.Content("~/pictures/couple.jpg")" id="couplepic" />
+            <div id="IndexLoggin">
+                @Html.ActionLink("Log In", "LogIn", "Home", new { @id = "LogginLink" })
+            </div>
             <div id="IndexRegister">
                 @Html.ActionLink("Join now", "Register", "Home", new { @id = "RegisterLink" })
             </div>
-            <div id="Create">
-               
+            <div id="exUserOne">
+                <a href="@Url.Action("Profile", "Home", new { username = "cilla" })">
+                    <img src="@Url.Content("~/pictures/pris.jpg")" />
+                </a>
+                <p>Cilla Chan, 30</p>
+            </div>
+            <div id="exUserTwo">
+                <a href="@Url.Action("Profile", "Home", new { username = "zack"})">
+                    <img src="@Url.Content("~/pictures/Mark.jpg")">
+                </a>
+                <p>Zack Markenberg, 31</p>
             </div>
         </div>
     </div>
