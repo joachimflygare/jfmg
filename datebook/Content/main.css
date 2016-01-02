@@ -290,10 +290,10 @@ h3
 {
     z-index: 2;
     position: absolute;
-    margin-left: 1020px;
-    height: 30px;
-    width: 180px;
-    margin-top: -670px
+    margin-left: 900px;
+    height: 100px;
+    width: 200px;
+    margin-top: -50px
 }
 
 #acceptFriendLink

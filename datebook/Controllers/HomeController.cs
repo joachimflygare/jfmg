@@ -177,7 +177,9 @@ namespace datebook.Controllers
         public ActionResult PendingRequests(string username)
         {
             var profile = ProfileRepository.GetProfile(username);
+            List<Friends> requestList = FriendRepository.GetRequests(profile.UserId);
             ViewBag.Request = FriendRepository.GetPending(profile.UserId);
+
 
             return PartialView("PendingRequests");
         }

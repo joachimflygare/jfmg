@@ -67,7 +67,7 @@ namespace Repositories.Repositories
             }
         }
 
-        public static int GetPending(int? userId)
+        public static int GetPending(int userId)
         {
             using (var db = new MainDbEntities())
             {

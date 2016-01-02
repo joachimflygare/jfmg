@@ -240,7 +240,7 @@
     <Content Include="Views\Home\Edit.cshtml" />
     <Content Include="Views\Home\Friend.cshtml" />
     <Content Include="Views\Home\SearchProfile.cshtml" />
-    <Content Include="Views\Home\PendingRequests.cshtml" />
+    <Content Include="Views\Shared\PendingRequests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="pictures\" />
