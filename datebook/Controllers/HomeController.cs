@@ -62,6 +62,7 @@ namespace datebook.Controllers
             model.visible = getProfile.Visible.Value;
 
             ViewBag.CurrentUser = loggedIn.Username;
+            ViewBag.UserId = loggedIn.UserId;
             ViewBag.Relation = FriendRepository.Relation(loggedIn.UserId, getProfile.UserId);
 
             return View(model);

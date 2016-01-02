@@ -55,10 +55,12 @@
                     <br />
                     @if(ViewBag.Relation != null && ViewBag.Relation.Accepted)
                     {<p>Friends with @Model.Username</p>}
-                    else if (ViewBag.Relation != null && ViewBag.Relation.UserId == @Model.UserId && !ViewBag.Relation.Accepted)
+                    else if (ViewBag.Relation != null && ViewBag.Relation.UserId != ViewBag.UserId && !ViewBag.Relation.Accepted)
                     { @Html.ActionLink("Accept friend", "AcceptFriend", "Home", new {userId = ViewBag.Relation.UserId, friendId = ViewBag.Relation.FriendId}, new { @id = "acceptFriendLink"})}
+                    else if(ViewBag.Relation != null && !ViewBag.Relation.Accepted && ViewBag.Relation.UserId == ViewBag.UserId)
+                    {<p>Friend request pending</p>}                                                                                                                                                                                                                                                                                                                                           
                     else if (ViewBag.CurrentUser != @Model.Username && ViewBag.Relation == null)
-                    {@Html.ActionLink("Friend request!", "AddFriend", "Home", new { name = @Model.Username }, new { onclick = "return Confirmation()"})}
+                    {@Html.ActionLink("Friend request !", "AddFriend", "Home", new { name = @Model.Username }, new { onclick = "return Confirmation()"})}
                     else{}                                                                                                                                   
                     <br />
             </div>
