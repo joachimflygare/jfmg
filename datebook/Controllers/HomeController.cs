@@ -43,7 +43,7 @@ namespace datebook.Controllers
         {
             if (User.Identity.IsAuthenticated == false)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Register", "Home");
             }
 
             if (username == null)
