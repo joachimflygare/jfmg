@@ -14,11 +14,9 @@
     {
         ChildActionExtensions.RenderAction(Html, "PendingRequests", "Home", new { username = User.Identity.Name });
         <div id="friendRequestDiv">
-            @if (ViewBag.Request != null)
-            {   var count = 0;
-                foreach(var item in ViewBag.Request)
-                { count++; };
-                @Html.ActionLink("[" + count + "] New friend request", "Friend", "Home")
+            @if(TempData["Request"] != null)
+            {
+               @Html.ActionLink("[" + TempData["Request"] + "] New friend request", "Friend", "Home")
             }
         </div>
     }

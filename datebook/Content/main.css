@@ -301,11 +301,10 @@ h3
 {
     z-index: 2;
     position: absolute;
-    margin-left: 900px;
-    height: 100px;
+    margin-left: 1000px;
+    height: 10px;
     width: 200px;
-    margin-top: -50px;
-    border: 1px solid black;
+    margin-top: -70px;
 }
 
 #acceptFriendLink
