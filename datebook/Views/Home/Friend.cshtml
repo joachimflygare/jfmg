@@ -36,11 +36,11 @@
                    
                     if (friend.Users.Username == ViewBag.CurrentUser || friend.Users.Username == null)
                     {
-                       <h2>@Html.ActionLink((string)friend.Users1.Username, "Profile", "Home", new { username = friend.Users1.Username },null)</h2>
+                       <h2>@Html.ActionLink((string)friend.Users1.Username, "Profile", "Home", new { username = friend.Users1.Username }, new { @class = "hLinks" })</h2>
                     }
                     else
                     {
-                        <h2>@Html.ActionLink((string)friend.Users.Username, "Profile", "Home", new { username = friend.Users.Username },null)</h2>
+                        <h2>@Html.ActionLink((string)friend.Users.Username, "Profile", "Home", new { username = friend.Users.Username }, new { @class = "hLinks" }))</h2>
                     }
                 }
             </div>
@@ -49,8 +49,8 @@
                 @foreach (var friend in ViewBag.Request)
                 {
                     if (friend.Users.Username == ViewBag.CurrentUser)
-                    {<h2>@Html.ActionLink((string)friend.Users1.Username, "Profile", "Home", new { username = friend.Users1.Username }, null)</h2>}
-                    else{<h2>@Html.ActionLink((string)friend.Users.Username, "Profile", "Home", new { username = friend.Users.Username }, null)</h2>}
+                    {<h2>@Html.ActionLink((string)friend.Users1.Username, "Profile", "Home", new { username = friend.Users1.Username }, new { @class = "hLinks" }))</h2>}
+                    else{<h2>@Html.ActionLink((string)friend.Users.Username, "Profile", "Home", new { username = friend.Users.Username }, new { @class = "hLinks" })</h2>}
                 }
             </div>
         </div>

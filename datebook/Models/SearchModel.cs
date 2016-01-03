@@ -8,7 +8,6 @@ namespace datebook.Models
 {
     public class SearchModel
     {
-        [Required]
         public string SearchString { get; set; }
 
     }

@@ -58,27 +58,65 @@
                     else if (ViewBag.Relation != null && ViewBag.Relation.UserId != ViewBag.UserId && !ViewBag.Relation.Accepted)
                     { @Html.ActionLink("Accept friend", "AcceptFriend", "Home", new {userId = ViewBag.Relation.UserId, friendId = ViewBag.Relation.FriendId}, new { @id = "acceptFriendLink"})}
                     else if(ViewBag.Relation != null && !ViewBag.Relation.Accepted && ViewBag.Relation.UserId == ViewBag.UserId)
-                    {<p>Friend request pending</p>}                                                                                                                                                                                                                                                                                                                                           
+                    {<p>Friend request pending</p>}
+                    else if (ViewBag.CurrentUser == @Model.Username)
+                    {<br />}                                                                                                                                                                                                                                                                                                                                                                     
                     else if (ViewBag.CurrentUser != @Model.Username && ViewBag.Relation == null)
-                    {@Html.ActionLink("Friend request !", "AddFriend", "Home", new { name = @Model.Username }, new { onclick = "return Confirmation()"})}
-                    else{}                                                                                                                                   
+                    {@Html.ActionLink("Friend request !", "AddFriend", "Home", new { name = @Model.Username }, new { onclick = "return Confirmation()"})}                                                                                                                                
                     <br />
             </div>
             <div id="postDiv">
                 <textarea id="taPost" maxlength="150"></textarea>
-                <input type="button" value="Post">
+                <input type="button" value="Post" onclick="Post()" />
             </div>
             <div id="wallDiv">
-                <p>WallDiv</p>
             </div>
         </div>
     </div>
 </body>
 </html>
-
-
 <script type="text/javascript">
+    window.onload = getPost();
+
     function Confirmation() {
     alert("Friend request sent to @Model.Username")
     }
+
+    function Post() {
+        if (document.getElementById("taPost").value != "") {
+            var post = {
+                Post: document.getElementById("taPost").value,
+                PosterName: "@User.Identity.Name",
+                PostTo: "@Model.UserId"
+            };
+            $.ajax({
+                type: "POST",
+                url: "/api/Post/Post",
+                content: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(post),
+                cache: false,
+                success: function () {
+                    window.location.reload();
+                }
+            });
+
+        }
+        else { alert("Write something!"); }
+    };
+
+    function getPost() {
+        $.ajax({
+            type: "GET",
+            url: "/api/Post/getPost?userId=@Model.UserId",
+            success: function (data) {
+                for (var item in data) {
+                    var postmodel = data[item];
+                    var text = "<p>" + postmodel.Post + "</p>< br/>" + "<p> Posted by ; " + postmodel.PosterName + "</p>";
+                    $("#wallDiv").prepend(html);
+                }
+            }
+        });
+    };
+
 </script>

@@ -24,7 +24,7 @@
         <div id="divPicture">
             <img src="@Url.Content("~/pictures/couple.jpg")" id="couplepic" />
             <div id="EditDiv">
-                <h3>Edit information</h3>
+                <h3 class="hLinks">Edit information</h3>
                 @using (Html.BeginForm())
                 {
                     @Html.ValidationSummary(true, "Error, please re-check the fields")

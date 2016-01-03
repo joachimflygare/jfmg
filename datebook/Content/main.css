@@ -33,7 +33,7 @@ h1
     font-family: cursive;
 }
 
-h3
+.hLinks
 {
     color: white;
 }
@@ -340,11 +340,12 @@ h3
     height: 100%;
     width: 83%;
     background-color: #232323;
-
+    color: white;
 }
 
-textarea{
-    color: #ff0000;
+textarea
+{
+    color: white;
 }
 
 #wallDiv

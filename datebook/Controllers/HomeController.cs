@@ -84,7 +84,7 @@ namespace datebook.Controllers
                 if (LogInRepository.IsValid(model.Username, model.Password))
                 {
                     FormsAuthentication.SetAuthCookie(model.Username, false);
-                    return RedirectToAction("Profile", "Home", new { username = User.Identity.Name });
+                    return RedirectToAction("Profile", "Home", new { username = model.Username });
                 }
                 else
                 {
@@ -116,7 +116,6 @@ namespace datebook.Controllers
                RegisterRepository.Register(model.Name, model.Username, model.Gender, model.Age, model.Visible, model.Password);
                return RedirectToAction("LogIn", "Home", new { username = User.Identity.Name });
             }
-
                    else TempData["Error"] = "<script>alert('Error, username already taken');</script>";
                    return RedirectToAction("Register", "Home");
         }

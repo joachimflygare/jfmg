@@ -89,6 +89,7 @@
     <Compile Include="Repositories\EditProfileRepository.cs" />
     <Compile Include="Repositories\FriendRepository.cs" />
     <Compile Include="Repositories\LogInRepository.cs" />
+    <Compile Include="Repositories\PostRepository.cs" />
     <Compile Include="Repositories\RegisterRepository.cs" />
     <Compile Include="Repositories\ProfileRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
