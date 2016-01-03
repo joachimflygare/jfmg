@@ -30,9 +30,6 @@
                     @Html.ValidationSummary(true, "Error, please re-check the fields")
                     @Html.TextBoxFor(model => model.Name, new { placeholder = "Firstname" })<br>
                     <br />
-                    @Html.TextBoxFor(model => model.Username, new { placeholder = "Username" })
-                    @Html.ValidationMessageFor(model => model.Username)<br>
-                    <br />
                     @Html.DropDownList("Gender", new List<SelectListItem> {
                     new SelectListItem {Text = "Male", Value= "Male"},
                     new SelectListItem {Text = "Female", Value= "Female"}
@@ -54,8 +51,6 @@
                     @Html.Raw(TempData["Error"])
                 }
             </div>
-            @*@<div id="pc"><img src="@Url.Content("~/pictures/pris.jpg")"><p>Cilla Chan, 30</p></div>
-                <div id="mz"><img src="@Url.Content("~/pictures/Mark.jpg")"><p>Zack Markenberg, 31</p></div>*@
         </div>
     </div>
 </body>

@@ -50,6 +50,8 @@ namespace datebook.Controllers
             {
                 username = User.Identity.Name;
             }
+
+            
             var getProfile = ProfileRepository.GetProfile(username);
             var loggedIn = ProfileRepository.GetProfile(User.Identity.Name);
 
@@ -110,8 +112,14 @@ namespace datebook.Controllers
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
-           
-            if (ModelState.IsValid && RegisterRepository.CheckUsername(model.Username))
+
+            if (!ModelState.IsValid)
+            {
+                TempData["Error"] = "<script>alert('No fields can be empty');</script>";
+                return RedirectToAction("Register", "Home");
+            }
+            
+            if (RegisterRepository.CheckUsername(model.Username))
             {
                RegisterRepository.Register(model.Name, model.Username, model.Gender, model.Age, model.Visible, model.Password);
                return RedirectToAction("LogIn", "Home", new { username = User.Identity.Name });
@@ -130,11 +138,13 @@ namespace datebook.Controllers
         [HttpPost]
         public ActionResult Edit(EditModel model)
         {
-            if (EditProfileRepository.EditUser(User.Identity.Name, model.Username, model.Name, model.Gender, model.Age, model.Info, model.Visible, model.Password))
-                return RedirectToAction("Profile", "Home", new { username = model.Username });
-            else
-                TempData["Error"] = "<script>alert('Error, please re-check your input');</script>";
-            return RedirectToAction("Edit", "Home");
+            if (!ModelState.IsValid)
+            {
+                TempData["Error"] = "<script>alert('No fields can be empty');</script>";
+                return RedirectToAction("Edit", "Home");
+            }
+            EditProfileRepository.EditUser(User.Identity.Name, model.Name, model.Gender, model.Age, model.Info, model.Visible, model.Password);
+                return RedirectToAction("Profile", "Home");
         }
 
         public ActionResult Friend()

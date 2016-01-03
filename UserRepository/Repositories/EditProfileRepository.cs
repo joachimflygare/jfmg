@@ -8,15 +8,14 @@ namespace Repositories.Repositories
 {
     public class EditProfileRepository
     {
-        public static Boolean EditUser(string currentUserName, string username, string name, string gender, int age, string info, int visible, string password)
+        public static void EditUser(string username, string name, string gender, int age, string info, int visible, string password)
         {
-            if (RegisterRepository.CheckUsername(username))
-            {
+           
                 using (var db = new MainDbEntities())
                 {
-                    var user = db.Users.FirstOrDefault(u => u.Username == currentUserName);
+                    var user = db.Users.FirstOrDefault(x => x.Username.Equals(username));
                     Boolean boolVis;
-                    user.Username = username;
+                    user.Name = name;
                     user.Gender = gender;
                     user.Age = age;
                     user.Info = info;
@@ -27,12 +26,9 @@ namespace Repositories.Repositories
                     user.Visible = boolVis;
                     user.Passsword = password;
                     db.SaveChanges();
-                    return true;
                 }
-            }
+            
    
-            return false;
-
         }
 
     }

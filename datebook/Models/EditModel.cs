@@ -8,19 +8,17 @@ namespace datebook.Models
 {
     public class EditModel
     {
-        [Required]
+        [Required(ErrorMessage = "No field can be empty")]
         public string Name { get; set; }
-        [Required]
-        public string Username { get; set; }
-        [Required]
+        [Required(ErrorMessage = "No field can be empty")]
         public string Gender { get; set; }
-        [Required]
+        [Required(ErrorMessage = "No field can be empty")]
         public int Age { get; set; }
-        [Required]
+        [Required(ErrorMessage = "No field can be empty")]
         public string Info { get; set; }
-        [Required]
+        [Required(ErrorMessage = "No field can be empty")]
         public int Visible { get; set; }
-        [Required]
+        [Required(ErrorMessage = "No field can be empty")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
