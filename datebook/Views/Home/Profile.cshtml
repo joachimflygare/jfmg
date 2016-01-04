@@ -12,6 +12,7 @@
     <meta charset="utf-8" />
     <title>@ViewBag.Title -Datebook.com</title>
     <link href="@Url.Content("~/Content/main.css")" rel="stylesheet" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 </head>
 <body>
@@ -71,9 +72,6 @@
                 <button onclick="Post()">Post</button>
             </div>
             <div id="wallDiv">
-                <button onclick="getPost()">Get</button>
-                <button onclick="test()">Test</button>
-                <p>Hej</p>
             </div>
         </div>
     </div>
@@ -81,14 +79,9 @@
 </html>
 
 <script type="text/javascript">
-    window.onload = getPost();
-
-    function test() {
-        var html = '<p>';
-        html += "@Model.Username";
-        html += '</p>';
-        $("#wallDiv").prepend(html);
-    }
+    $(document).ready(function () {
+        getPost();
+    });
 
     function Confirmation() {
         alert("Friend request sent to @Model.Username")
@@ -117,11 +110,14 @@
     function getPost() {
         $.ajax({
             type: "GET",
-            url: "/api/Post/getPost?userId=@Model.UserId",
+            url: "/api/Post/getPost",
+            data: {
+                userId : "@Model.UserId"
+            },
             success: function (posts) {
                 for (var item in posts) {
                     var postmodel = posts[item];
-                    var text = '<p>' + postmodel.Post + '</p>< br/>' + '<p> Posted by ; ' + postmodel.PosterName + '</p>';
+                    var html = '<p>' + postmodel.Post +  '<br/>Posted by : ' + postmodel.PosterName + '</p><br />';
                     $("#wallDiv").prepend(html);
                 }
             }
