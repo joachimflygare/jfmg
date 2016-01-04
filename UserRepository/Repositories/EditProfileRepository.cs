@@ -8,7 +8,7 @@ namespace Repositories.Repositories
 {
     public class EditProfileRepository
     {
-        public static void EditUser(string username, string name, string gender, int age, string info, int visible, string password)
+        public static void EditUser(string username, string name, string gender, int age, string info, int visible, string password, string picture)
         {
            
                 using (var db = new MainDbEntities())
@@ -25,6 +25,7 @@ namespace Repositories.Repositories
                         boolVis = false;
                     user.Visible = boolVis;
                     user.Passsword = password;
+                    user.Picture = picture;
                     db.SaveChanges();
                 }
             

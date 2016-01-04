@@ -32,6 +32,7 @@ namespace Repositories
         public string Info { get; set; }
         public Nullable<bool> Visible { get; set; }
         public string Passsword { get; set; }
+        public string Picture { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Friends> Friends { get; set; }

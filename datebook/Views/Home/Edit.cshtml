@@ -47,6 +47,8 @@
                     @Html.PasswordFor(model => model.Password, new { placeholder = "Password"})
                     @Html.ValidationMessageFor(model => model.Password)<br>
                     <br />
+                    <input type="file" name="file" id="file" />
+                    <br />
                     <input type="submit" value="Change">
                     @Html.Raw(TempData["Error"])
                 }

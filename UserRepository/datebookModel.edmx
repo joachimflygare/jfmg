@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MainDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MainDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Friends">
           <Key>
             <PropertyRef Name="RelationID" />
@@ -43,6 +43,7 @@
           <Property Name="Info" Type="nvarchar" MaxLength="400" />
           <Property Name="Visible" Type="bit" />
           <Property Name="Passsword" Type="nvarchar" MaxLength="40" />
+          <Property Name="Picture" Type="varchar" MaxLength="100" />
         </EntityType>
         <Association Name="FK__Friends__FriendI__286302EC">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
@@ -146,8 +147,7 @@
             <End Role="Posts" EntitySet="Posts" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MainDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -191,6 +191,7 @@
           <NavigationProperty Name="Posts" Relationship="Self.FK_Posts_PostBy" FromRole="Users" ToRole="Posts" />
           <NavigationProperty Name="Posts1" Relationship="Self.FK_Posts_PostTo" FromRole="Users" ToRole="Posts" />
           <NavigationProperty Name="Posts2" Relationship="Self.Post_User" FromRole="Users" ToRole="Posts" />
+          <Property Name="Picture" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK__Friends__FriendI__286302EC">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
@@ -298,6 +299,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="MainDbModel.Users">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Username" ColumnName="Username" />

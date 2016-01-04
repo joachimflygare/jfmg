@@ -137,15 +137,38 @@ namespace datebook.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(EditModel model)
+        public ActionResult Edit(EditModel model, HttpPostedFile file)
         {
             if (!ModelState.IsValid)
             {
                 TempData["Error"] = "<script>alert('No fields can be empty');</script>";
                 return RedirectToAction("Edit", "Home");
             }
-            EditProfileRepository.EditUser(User.Identity.Name, model.Name, model.Gender, model.Age, model.Info, model.Visible, model.Password);
-                return RedirectToAction("Profile", "Home");
+             //if (file != null)
+             //   {
+             //       var extension = Path.GetExtension(file.FileName);
+
+             //       if (extension == ".jpeg" || extension == ".jpg" || extension == ".png")
+             //       {
+             //           var pictureName = ProfileRepository.getUserEmail(currentUser) + extension;
+             //           //var pictureName = model.Email + extension;
+             //           var folder = Server.MapPath("~/Images/profilePics");
+             //           var newPicture = Path.Combine(folder, pictureName);
+             //           var profile = ProfileRepository.GetProfile(currentUser);
+             //           //gammla bilden tas bort om de inte är default
+             //               if (profile.picture != "default.jpg")
+             //               {
+             //                   var currentPicturePath = Path.Combine(folder, profile.picture);
+
+             //                   if (System.IO.File.Exists(currentPicturePath))
+             //                   {
+             //                       System.IO.File.Delete(currentPicturePath);
+             //                   }
+             //               }
+             //               file.SaveAs(newPicture);
+
+            EditProfileRepository.EditUser(User.Identity.Name, model.Name, model.Gender, model.Age, model.Info, model.Visible, model.Password, model.Picture);
+                return RedirectToAction("Profile", "Home", new {username = User.Identity.Name});
         }
 
         public ActionResult Friend()

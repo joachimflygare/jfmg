@@ -8,6 +8,7 @@ namespace datebook.Models
 {
     public class EditModel
     {
+        public string Picture { get; set; }
         [Required(ErrorMessage = "No field can be empty")]
         public string Name { get; set; }
         [Required(ErrorMessage = "No field can be empty")]
