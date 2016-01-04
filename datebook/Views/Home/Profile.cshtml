@@ -67,35 +67,43 @@
                     <br />
             </div>
             <div id="postDiv">
-                <textarea id="taPost" maxlength="150"></textarea>
-                <input type="button" value="Post" onclick="Post()" />
+                <textarea id="taPost" maxlength="100"></textarea>
+                <button onclick="Post()">Post</button>
             </div>
             <div id="wallDiv">
+                <button onclick="getPost()">Get</button>
+                <button onclick="test()">Test</button>
+                <p>Hej</p>
             </div>
         </div>
     </div>
 </body>
 </html>
+
 <script type="text/javascript">
     window.onload = getPost();
 
+    function test() {
+        var html = '<p>';
+        html += "@Model.Username";
+        html += '</p>';
+        $("#wallDiv").prepend(html);
+    }
+
     function Confirmation() {
-    alert("Friend request sent to @Model.Username")
+        alert("Friend request sent to @Model.Username")
     }
 
     function Post() {
         if (document.getElementById("taPost").value != "") {
-            var post = {
-                Post: document.getElementById("taPost").value,
-                PosterName: "@User.Identity.Name",
-                PostTo: "@Model.UserId"
-            };
             $.ajax({
                 type: "POST",
                 url: "/api/Post/Post",
-                content: "application/json; charset=utf-8",
-                dataType: "json",
-                data: JSON.stringify(post),
+                data: {
+                    Post: document.getElementById("taPost").value,
+                    PosterName: "@User.Identity.Name",
+                    PostTo: "@Model.UserId"
+                },
                 cache: false,
                 success: function () {
                     window.location.reload();
@@ -110,14 +118,13 @@
         $.ajax({
             type: "GET",
             url: "/api/Post/getPost?userId=@Model.UserId",
-            success: function (data) {
-                for (var item in data) {
-                    var postmodel = data[item];
-                    var text = "<p>" + postmodel.Post + "</p>< br/>" + "<p> Posted by ; " + postmodel.PosterName + "</p>";
+            success: function (posts) {
+                for (var item in posts) {
+                    var postmodel = posts[item];
+                    var text = '<p>' + postmodel.Post + '</p>< br/>' + '<p> Posted by ; ' + postmodel.PosterName + '</p>';
                     $("#wallDiv").prepend(html);
                 }
             }
         });
     };
-
 </script>

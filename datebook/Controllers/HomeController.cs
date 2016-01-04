@@ -57,6 +57,7 @@ namespace datebook.Controllers
 
             var model = new ProfileModel();
             model.Username = username;
+            model.UserId = getProfile.UserId;
             model.Name = getProfile.Name;
             model.Age = getProfile.Age.Value;
             model.Gender = getProfile.Gender;

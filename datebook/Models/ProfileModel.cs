@@ -5,7 +5,7 @@ using System.Web;
 
 namespace datebook.Models
 {
-    public class ProfileModel : FriendModel
+    public class ProfileModel
     {
         public int UserId { get; set; }
         public string Name { get; set; }

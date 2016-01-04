@@ -6,7 +6,7 @@ using System.Web.Http;
 
 namespace datebook.App_Start
 {
-    public class WebApiConfig
+    public static class WebApiConfig
     {
         public static void Register(HttpConfiguration config)
         {

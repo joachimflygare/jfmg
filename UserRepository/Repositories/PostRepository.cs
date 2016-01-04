@@ -23,11 +23,11 @@ namespace Repositories.Repositories
             }
         }
 
-        public static List<Posts> getPost(int userId)
+        public static List<Posts> getPost(int? userId)
         {
             using (var db = new MainDbEntities())
             {
-                var posts = db.Posts.Where(x => x.PostTo.Equals(userId)).ToList();
+                var posts = db.Posts.Where(x => x.PostTo == (userId)).ToList();
                 return posts;
             }
         }
