@@ -8,6 +8,7 @@ using datebook.Models;
 using System.Web.Security;
 using Repositories.Repositories;
 using System.Web.Script.Serialization;
+using System.IO;
 
 
 namespace datebook.Controllers
@@ -36,7 +37,7 @@ namespace datebook.Controllers
 
             else { TempData["Error"] = "<script>alert('No person by that name was found');</script>"; }
             return RedirectToAction("SearchProfile", "Home");
-           
+
         }
 
         public ActionResult Profile(string username)
@@ -51,12 +52,13 @@ namespace datebook.Controllers
                 username = User.Identity.Name;
             }
 
-            
+
             var getProfile = ProfileRepository.GetProfile(username);
             var loggedIn = ProfileRepository.GetProfile(User.Identity.Name);
 
             var model = new ProfileModel();
             model.Username = username;
+            model.Picture = getProfile.Picture;
             model.UserId = getProfile.UserId;
             model.Name = getProfile.Name;
             model.Age = getProfile.Age.Value;
@@ -82,7 +84,7 @@ namespace datebook.Controllers
         [HttpPost]
         public ActionResult LogIn(LogInModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 if (LogInRepository.IsValid(model.Username, model.Password))
                 {
@@ -119,56 +121,64 @@ namespace datebook.Controllers
                 TempData["Error"] = "<script>alert('No fields can be empty');</script>";
                 return RedirectToAction("Register", "Home");
             }
-            
+
             if (RegisterRepository.CheckUsername(model.Username))
             {
-               RegisterRepository.Register(model.Name, model.Username, model.Gender, model.Age, model.Visible, model.Password);
-               return RedirectToAction("LogIn", "Home", new { username = User.Identity.Name });
+                RegisterRepository.Register(model.Name, model.Username, model.Gender, model.Age, model.Visible, model.Password);
+                return RedirectToAction("LogIn", "Home", new { username = User.Identity.Name });
             }
-                   else TempData["Error"] = "<script>alert('Error, username already taken');</script>";
-                   return RedirectToAction("Register", "Home");
+            else TempData["Error"] = "<script>alert('Error, username already taken');</script>";
+            return RedirectToAction("Register", "Home");
         }
 
-        public ActionResult Edit() 
+        public ActionResult Edit()
         {
 
             return View();
-            
+
         }
 
         [HttpPost]
-        public ActionResult Edit(EditModel model, HttpPostedFile file)
+        public ActionResult Edit(EditModel model, HttpPostedFileBase file)
         {
             if (!ModelState.IsValid)
             {
                 TempData["Error"] = "<script>alert('No fields can be empty');</script>";
                 return RedirectToAction("Edit", "Home");
             }
-             //if (file != null)
-             //   {
-             //       var extension = Path.GetExtension(file.FileName);
+            if (file != null)
+            {
+                var extension = Path.GetExtension(file.FileName);
 
-             //       if (extension == ".jpeg" || extension == ".jpg" || extension == ".png")
-             //       {
-             //           var pictureName = ProfileRepository.getUserEmail(currentUser) + extension;
-             //           //var pictureName = model.Email + extension;
-             //           var folder = Server.MapPath("~/Images/profilePics");
-             //           var newPicture = Path.Combine(folder, pictureName);
-             //           var profile = ProfileRepository.GetProfile(currentUser);
-             //           //gammla bilden tas bort om de inte är default
-             //               if (profile.picture != "default.jpg")
-             //               {
-             //                   var currentPicturePath = Path.Combine(folder, profile.picture);
+                if (extension == ".jpeg" || extension == ".jpg" || extension == ".png")
+                {
+                    var pictureName = ProfileRepository.GetProfile(User.Identity.Name).Username + extension;
+                    var folder = Server.MapPath("~/pictures/profilePics");
+                    var newPicture = Path.Combine(folder, pictureName);
+                    var profile = ProfileRepository.GetProfile(User.Identity.Name);
 
-             //                   if (System.IO.File.Exists(currentPicturePath))
-             //                   {
-             //                       System.IO.File.Delete(currentPicturePath);
-             //                   }
-             //               }
-             //               file.SaveAs(newPicture);
+                    if (profile.Picture != "default.jpg")
+                    {
+                        var currentPicturePath = Path.Combine(folder, profile.Picture);
 
-            EditProfileRepository.EditUser(User.Identity.Name, model.Name, model.Gender, model.Age, model.Info, model.Visible, model.Password, model.Picture);
-                return RedirectToAction("Profile", "Home", new {username = User.Identity.Name});
+                        if (System.IO.File.Exists(currentPicturePath))
+                        {
+                            System.IO.File.Delete(currentPicturePath);
+                        }
+                    }
+                    file.SaveAs(newPicture);
+                    ProfileRepository.UpdatePicture(User.Identity.Name, newPicture);
+
+                }
+                else
+                {
+                    TempData["alertWrongPicFormat"] = "<script>alert('Wrong picture format! (.jpeg, .jpg or .png)');</script>";
+                    return View();
+                }
+
+            }
+            EditProfileRepository.EditUser(User.Identity.Name, model.Name, model.Gender, model.Age, model.Info, model.Visible, model.Password);
+            return RedirectToAction("Profile", "Home", new { username = User.Identity.Name });
         }
 
         public ActionResult Friend()
@@ -176,7 +186,7 @@ namespace datebook.Controllers
             var profile = ProfileRepository.GetProfile(User.Identity.Name);
             List<Friends> friendList = FriendRepository.GetFriends(profile.UserId);
             List<Friends> requestList = FriendRepository.GetRequests(profile.UserId);
-            
+
             ViewBag.Friend = friendList;
             ViewBag.Request = requestList;
             ViewBag.CurrentUser = profile.Username;
@@ -207,7 +217,7 @@ namespace datebook.Controllers
 
             return RedirectToAction("Profile", "Home");
         }
-        
+
         public ActionResult PendingRequests(string username)
         {
             var profile = ProfileRepository.GetProfile(username);
@@ -217,6 +227,6 @@ namespace datebook.Controllers
         }
 
     }
-        
+
 }
 

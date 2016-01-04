@@ -45,6 +45,9 @@
         </div>
         <div id="divPicture">
             <img src="@Url.Content("~/pictures/couple.jpg")" id="couplepic" />
+            <div id="profilePicDiv">
+            <img src=@Url.Content("~/pictures/profilePics/" + Model.Picture) alt="profile.pic" />
+            </div>
             <div id="infoDiv">
                     <p>Username: @Model.Username</p>
                     <p>Name: @Model.Name</p>

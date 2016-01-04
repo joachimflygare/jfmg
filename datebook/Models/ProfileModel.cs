@@ -14,5 +14,6 @@ namespace datebook.Models
         public string Gender { get; set; }
         public string Info { get; set; }
         public Boolean visible { get; set; }
+        public string Picture { get; set; }
     }
 }

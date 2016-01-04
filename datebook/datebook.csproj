@@ -246,7 +246,7 @@
     <Content Include="Views\Shared\PendingRequests.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="pictures\" />
+    <Folder Include="pictures\profilePics\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -25,7 +25,7 @@
             <img src="@Url.Content("~/pictures/couple.jpg")" id="couplepic" />
             <div id="EditDiv">
                 <h3 class="hLinks">Edit information</h3>
-                @using (Html.BeginForm())
+                @using (Html.BeginForm("Edit", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     @Html.ValidationSummary(true, "Error, please re-check the fields")
                     @Html.TextBoxFor(model => model.Name, new { placeholder = "Firstname" })<br>
@@ -37,16 +37,17 @@
                     <br />
                     @Html.TextBoxFor(model => model.Age, new { placeholder = "Age" })<br>
                     <br />
-                    @Html.TextAreaFor(model => model.Info, new { placeholder = "Info", @id ="EditBox"})<br>
+                    @Html.TextAreaFor(model => model.Info, new { placeholder = "Info", @id = "EditBox" })<br>
                     <br />
                     @Html.DropDownList("Visible", new List<SelectListItem> {
                     new SelectListItem {Text = "Yes!", Value = "1"},
                     new SelectListItem {Text = "No!", Value ="2"}
                     }, "Visible for search?")<br />
                     <br />
-                    @Html.PasswordFor(model => model.Password, new { placeholder = "Password"})
+                    @Html.PasswordFor(model => model.Password, new { placeholder = "Password" })
                     @Html.ValidationMessageFor(model => model.Password)<br>
                     <br />
+                    <label for="file">Upload profile picture </label>
                     <input type="file" name="file" id="file" />
                     <br />
                     <input type="submit" value="Change">

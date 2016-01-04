@@ -26,6 +26,16 @@ namespace Repositories
               }
 
           }
+
+          public static void UpdatePicture(string username, string picture)
+          {
+              using (var db = new MainDbEntities())
+              {
+                  var user = db.Users.FirstOrDefault(x => x.Username.Equals(username));
+                  user.Picture = picture;
+                  db.SaveChanges();
+              }
+          }
        
     }
 }
