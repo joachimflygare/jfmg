@@ -152,22 +152,20 @@ namespace datebook.Controllers
 
                 if (extension == ".jpeg" || extension == ".jpg" || extension == ".png")
                 {
-                    var pictureName = ProfileRepository.GetProfile(User.Identity.Name).Username + extension;
-                    var folder = Server.MapPath("~/pictures/profilePics");
-                    var newPicture = Path.Combine(folder, pictureName);
+                    var fileName = ProfileRepository.GetProfile(User.Identity.Name).Username + extension;
                     var profile = ProfileRepository.GetProfile(User.Identity.Name);
 
                     if (profile.Picture != "default.jpg")
                     {
-                        var currentPicturePath = Path.Combine(folder, profile.Picture);
+                        var currentPicturePath = Path.Combine(Server.MapPath("~/pictures/profilePics"), profile.Picture);
 
                         if (System.IO.File.Exists(currentPicturePath))
                         {
                             System.IO.File.Delete(currentPicturePath);
                         }
                     }
-                    file.SaveAs(newPicture);
-                    ProfileRepository.UpdatePicture(User.Identity.Name, newPicture);
+                    file.SaveAs(Server.MapPath("~/pictures/profilePics/"+fileName));
+                    ProfileRepository.UpdatePicture(User.Identity.Name, fileName);
 
                 }
                 else

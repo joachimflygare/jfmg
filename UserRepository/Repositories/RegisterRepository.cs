@@ -39,6 +39,7 @@ namespace Repositories
                     else
                         boolVis = true;
                     user.Visible = boolVis;
+                    user.Picture = "default.jpg";
                     db.Users.Add(user);
                     db.SaveChanges();
                       
