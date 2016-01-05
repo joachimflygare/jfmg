@@ -14,14 +14,6 @@
           <Property Name="FriendId" Type="int" />
           <Property Name="Accepted" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="Post_User">
-          <Key>
-            <PropertyRef Name="PostId" />
-            <PropertyRef Name="UserId" />
-          </Key>
-          <Property Name="PostId" Type="int" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="Posts">
           <Key>
             <PropertyRef Name="PostId" />
@@ -69,30 +61,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Post_User_PostId">
-          <End Role="Posts" Type="Self.Posts" Multiplicity="1" />
-          <End Role="Post_User" Type="Self.Post_User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Posts">
-              <PropertyRef Name="PostId" />
-            </Principal>
-            <Dependent Role="Post_User">
-              <PropertyRef Name="PostId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Post_User_Userid">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="Post_User" Type="Self.Post_User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Post_User">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Posts_PostBy">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Posts" Type="Self.Posts" Multiplicity="*" />
@@ -119,7 +87,6 @@
         </Association>
         <EntityContainer Name="MainDbModelStoreContainer">
           <EntitySet Name="Friends" EntityType="Self.Friends" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Post_User" EntityType="Self.Post_User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Posts" EntityType="Self.Posts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Friends__FriendI__286302EC" Association="Self.FK__Friends__FriendI__286302EC">
@@ -129,14 +96,6 @@
           <AssociationSet Name="FK__Friends__UserId__276EDEB3" Association="Self.FK__Friends__UserId__276EDEB3">
             <End Role="Users" EntitySet="Users" />
             <End Role="Friends" EntitySet="Friends" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Post_User_PostId" Association="Self.FK_Post_User_PostId">
-            <End Role="Posts" EntitySet="Posts" />
-            <End Role="Post_User" EntitySet="Post_User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Post_User_Userid" Association="Self.FK_Post_User_Userid">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Post_User" EntitySet="Post_User" />
           </AssociationSet>
           <AssociationSet Name="FK_Posts_PostBy" Association="Self.FK_Posts_PostBy">
             <End Role="Users" EntitySet="Users" />
@@ -172,7 +131,6 @@
           <Property Name="Post" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Posts_PostBy" FromRole="Posts" ToRole="Users" />
           <NavigationProperty Name="Users1" Relationship="Self.FK_Posts_PostTo" FromRole="Posts" ToRole="Users" />
-          <NavigationProperty Name="Users2" Relationship="Self.Post_User" FromRole="Posts" ToRole="Users" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -190,7 +148,6 @@
           <NavigationProperty Name="Friends1" Relationship="Self.FK__Friends__UserId__276EDEB3" FromRole="Users" ToRole="Friends" />
           <NavigationProperty Name="Posts" Relationship="Self.FK_Posts_PostBy" FromRole="Users" ToRole="Posts" />
           <NavigationProperty Name="Posts1" Relationship="Self.FK_Posts_PostTo" FromRole="Users" ToRole="Posts" />
-          <NavigationProperty Name="Posts2" Relationship="Self.Post_User" FromRole="Users" ToRole="Posts" />
           <Property Name="Picture" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK__Friends__FriendI__286302EC">
@@ -241,10 +198,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Post_User">
-          <End Role="Posts" Type="Self.Posts" Multiplicity="*" />
-          <End Role="Users" Type="Self.Users" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="MainDbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Friends" EntityType="Self.Friends" />
           <EntitySet Name="Posts" EntityType="Self.Posts" />
@@ -264,10 +217,6 @@
           <AssociationSet Name="FK_Posts_PostTo" Association="Self.FK_Posts_PostTo">
             <End Role="Users" EntitySet="Users" />
             <End Role="Posts" EntitySet="Posts" />
-          </AssociationSet>
-          <AssociationSet Name="Post_User" Association="Self.Post_User">
-            <End Role="Posts" EntitySet="Posts" />
-            <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -311,14 +260,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Post_User" TypeName="MainDbModel.Post_User" StoreEntitySet="Post_User">
-            <EndProperty Name="Posts">
-              <ScalarProperty Name="PostId" ColumnName="PostId" />
-            </EndProperty>
-            <EndProperty Name="Users">
-              <ScalarProperty Name="UserId" ColumnName="UserId" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

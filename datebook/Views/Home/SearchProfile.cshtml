@@ -33,7 +33,7 @@
                 @using (Html.BeginForm("SearchProfile", "Home"))
                 {
                     @Html.ValidationSummary(true, "Error field cannot be empty")
-                    @Html.TextBoxFor(model => model.SearchString, new { id = "checkSearchString" })
+                    @Html.TextBoxFor(model => model.SearchString, new { @maxlength = "20", id = "checkSearchString" })
                     <input type="submit" id="btnSearch" value="Search" onclick="empty()" />
                     @Html.Raw(TempData["Error"])
                 }

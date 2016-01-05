@@ -18,7 +18,8 @@ namespace datebook.Models
         public int Age { get; set; }
         [Required(ErrorMessage = "No field can be empty")]
         public string Password { get; set; }
-        [Required(ErrorMessage = "No field can be empty")]
+        [RegularExpression(@"^(([0-9A-Z])(?!\2))*$")]
+        [Required(ErrorMessage = "Invalid password, only letters and numbers is allowed")]
         public int Visible { get; set; }
 
 

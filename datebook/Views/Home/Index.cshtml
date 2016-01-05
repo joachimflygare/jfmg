@@ -18,6 +18,12 @@
         <div id="header">
             <h2>@Html.ActionLink("datebook.com", "Index", "Home", new {@class = "hTaggar"})</h2>
         </div>
+        @if (Request.IsAuthenticated) 
+        { 
+        <div id="backToProfileDiv">
+            <h1>@Html.ActionLink("Profile", "Profile", "Home", new { @id = "linkStyles" })</h1>
+        </div>
+        }
         <div id="divPicture">
             <img src="@Url.Content("~/pictures/couple.jpg")" id="couplepic" />
             <div id="IndexLoggin">

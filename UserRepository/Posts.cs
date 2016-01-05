@@ -14,12 +14,6 @@ namespace Repositories
     
     public partial class Posts
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Posts()
-        {
-            this.Users2 = new HashSet<Users>();
-        }
-    
         public int PostId { get; set; }
         public Nullable<int> PostBy { get; set; }
         public Nullable<int> PostTo { get; set; }
@@ -27,7 +21,5 @@ namespace Repositories
     
         public virtual Users Users { get; set; }
         public virtual Users Users1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Users> Users2 { get; set; }
     }
 }

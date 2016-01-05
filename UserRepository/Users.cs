@@ -21,7 +21,6 @@ namespace Repositories
             this.Friends1 = new HashSet<Friends>();
             this.Posts = new HashSet<Posts>();
             this.Posts1 = new HashSet<Posts>();
-            this.Posts2 = new HashSet<Posts>();
         }
     
         public int UserId { get; set; }
@@ -42,7 +41,5 @@ namespace Repositories
         public virtual ICollection<Posts> Posts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Posts> Posts1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Posts> Posts2 { get; set; }
     }
 }

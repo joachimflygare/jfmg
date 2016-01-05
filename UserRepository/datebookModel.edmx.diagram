@@ -5,14 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="188144500e1f4590b6ca726d63c2b5a7" Name="Diagram1">
-        <EntityTypeShape EntityType="MainDbModel.Friends" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="MainDbModel.Posts" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="MainDbModel.Friends" Width="1.5" PointX="4.625" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MainDbModel.Posts" Width="1.5" PointX="7.625" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MainDbModel.Users" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
         <AssociationConnector Association="MainDbModel.FK__Friends__FriendI__286302EC" ManuallyRouted="false" />
         <AssociationConnector Association="MainDbModel.FK__Friends__UserId__276EDEB3" ManuallyRouted="false" />
         <AssociationConnector Association="MainDbModel.FK_Posts_PostBy" ManuallyRouted="false" />
         <AssociationConnector Association="MainDbModel.FK_Posts_PostTo" ManuallyRouted="false" />
-        <AssociationConnector Association="MainDbModel.Post_User" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

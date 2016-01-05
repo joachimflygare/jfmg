@@ -20,57 +20,29 @@ namespace datebook.Controllers
             return View();
         }
 
-        public ActionResult SearchProfile()
+        public ActionResult Register()
         {
+
             return View();
         }
 
         [HttpPost]
-        public ActionResult SearchProfile(SearchModel model)
+        public ActionResult Register(RegisterModel model)
         {
-            var user = SearchRepository.Search(model.SearchString);
-            if (user != null)
+
+            if (!ModelState.IsValid)
             {
-                ViewData["Result"] = user.Username;
-                return View();
-            }
-
-            else { TempData["Error"] = "<script>alert('No person by that name was found');</script>"; }
-            return RedirectToAction("SearchProfile", "Home");
-
-        }
-
-        public ActionResult Profile(string username)
-        {
-            if (User.Identity.IsAuthenticated == false)
-            {
+                TempData["Error"] = "<script>alert('No fields can be empty');</script>";
                 return RedirectToAction("Register", "Home");
             }
 
-            if (username == null)
+            if (RegisterRepository.CheckUsername(model.Username))
             {
-                username = User.Identity.Name;
+                RegisterRepository.Register(model.Name, model.Username, model.Gender, model.Age, model.Visible, model.Password);
+                return RedirectToAction("LogIn", "Home", new { username = User.Identity.Name });
             }
-
-
-            var getProfile = ProfileRepository.GetProfile(username);
-            var loggedIn = ProfileRepository.GetProfile(User.Identity.Name);
-
-            var model = new ProfileModel();
-            model.Username = username;
-            model.Picture = getProfile.Picture;
-            model.UserId = getProfile.UserId;
-            model.Name = getProfile.Name;
-            model.Age = getProfile.Age.Value;
-            model.Gender = getProfile.Gender;
-            model.Info = getProfile.Info;
-            model.visible = getProfile.Visible.Value;
-
-            ViewBag.CurrentUser = loggedIn.Username;
-            ViewBag.UserId = loggedIn.UserId;
-            ViewBag.Relation = FriendRepository.Relation(loggedIn.UserId, getProfile.UserId);
-
-            return View(model);
+            else TempData["Error"] = "<script>alert('Error, username already taken');</script>";
+            return RedirectToAction("Register", "Home");
         }
 
         [HttpGet]
@@ -106,29 +78,57 @@ namespace datebook.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult Register()
+        public ActionResult Profile(string username)
         {
+            if (User.Identity.IsAuthenticated == false)
+            {
+                return RedirectToAction("Register", "Home");
+            }
 
+            if (username == null)
+            {
+                username = User.Identity.Name;
+            }
+
+
+            var getProfile = ProfileRepository.GetProfile(username);
+            var loggedIn = ProfileRepository.GetProfile(User.Identity.Name);
+
+            var model = new ProfileModel();
+            model.Username = username;
+            model.Picture = getProfile.Picture;
+            model.UserId = getProfile.UserId;
+            model.Name = getProfile.Name;
+            model.Age = getProfile.Age.Value;
+            model.Gender = getProfile.Gender;
+            model.Info = getProfile.Info;
+            model.visible = getProfile.Visible.Value;
+
+            ViewBag.CurrentUser = loggedIn.Username;
+            ViewBag.UserId = loggedIn.UserId;
+            ViewBag.Relation = FriendRepository.Relation(loggedIn.UserId, getProfile.UserId);
+
+            return View(model);
+        }
+
+        public ActionResult SearchProfile()
+        {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Register(RegisterModel model)
+        public ActionResult SearchProfile(SearchModel model)
         {
-
-            if (!ModelState.IsValid)
+            var user = SearchRepository.Search(model.SearchString);
+            if (user != null)
             {
-                TempData["Error"] = "<script>alert('No fields can be empty');</script>";
-                return RedirectToAction("Register", "Home");
+                ViewData["Result"] = user.Username;
+                return View();
             }
 
-            if (RegisterRepository.CheckUsername(model.Username))
-            {
-                RegisterRepository.Register(model.Name, model.Username, model.Gender, model.Age, model.Visible, model.Password);
-                return RedirectToAction("LogIn", "Home", new { username = User.Identity.Name });
-            }
-            else TempData["Error"] = "<script>alert('Error, username already taken');</script>";
-            return RedirectToAction("Register", "Home");
+            else { TempData["Error"] = "<script>alert('No person by that name was found');</script>"; }
+            return RedirectToAction("SearchProfile", "Home");
+
         }
 
         public ActionResult Edit()

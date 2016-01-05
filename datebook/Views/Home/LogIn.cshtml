@@ -18,9 +18,9 @@
             <div id="Loggin">
                 @using (Html.BeginForm())
                 {
-                    @Html.TextBoxFor(model => model.Username, new { @class = "LogginBoxes", placeholder = "Username" })
+                    @Html.TextBoxFor(model => model.Username, new { @maxlength = "20", @class = "LogginBoxes", placeholder = "Username" })
                     @Html.ValidationMessageFor(model => model.Username)
-                    @Html.PasswordFor(model => model.Password, new { @class = "LogginBoxes", placeholder = "Password" })
+                    @Html.PasswordFor(model => model.Password, new { @maxlength = "10", @class = "LogginBoxes", placeholder = "Password" })
                     @Html.ValidationMessageFor(model => model.Password)
                     <input type="submit" value="Log In" />
                     @Html.Raw(TempData["Error"])
