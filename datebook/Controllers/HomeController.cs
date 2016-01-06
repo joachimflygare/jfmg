@@ -46,6 +46,16 @@ namespace datebook.Controllers
         }
 
         [HttpGet]
+        public ActionResult Language(string chosenLanguage)
+        {
+            var cookie = new HttpCookie("chosenLanguage", chosenLanguage) { HttpOnly = true };
+
+            Response.AppendCookie(cookie);
+
+            return RedirectToAction("Register", "Home", new { culture = chosenLanguage });
+        }
+
+        [HttpGet]
         public ActionResult LogIn()
         {
 

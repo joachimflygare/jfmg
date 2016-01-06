@@ -169,13 +169,13 @@ textarea
 
 #exUserOne
 {
-    margin-left: 155px;
+    margin-left: 180px;
 }
 
 #exUserTwo
 {
     margin-top: -235px;
-    margin-left: 390px;
+    margin-left: 410px;
 }
 
 #Register
@@ -210,6 +210,18 @@ textarea
 {
    
     border-radius: 5px;
+}
+
+#langDiv
+{
+    margin-top: -10px;
+}
+
+#langDiv a
+{
+    color: black;
+    font-style: italic;
+    font-size: 22px;
 }
 
 /* Edit.cshtml och element som rör vyn*/

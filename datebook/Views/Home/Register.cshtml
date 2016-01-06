@@ -1,4 +1,6 @@
-﻿@model datebook.Models.RegisterModel
+﻿@using Register
+@using System.Runtime.Versioning
+@model datebook.Models.RegisterModel
 
 @{
     ViewBag.Title = "Register";
@@ -30,24 +32,28 @@
                 <h1>Join now!</h1>
                 @using (Html.BeginForm())
                 {
+                    <div id="langDiv">
+                        @Html.ActionLink("Svenska", "Language", "Home", new { chosenLanguage = "sv" }, null)
+                        @Html.ActionLink("English", "Language", "Home", new { chosenLanguage = "en" }, null)
+                    </div>
                    <h3>@Html.ValidationSummary(true, "Registration failed, please re-check the fields")</h3>
-                    @Html.TextBoxFor(model => model.Name, new {@maxlength="20", @class = "RegisterBoxes" , placeholder = "Name" })<br>
-                    @Html.TextBoxFor(model => model.Username, new {@maxlength="20", @class = "RegisterBoxes", placeholder = "Username" })
+                    @Html.TextBoxFor(model => model.Name, new {@maxlength="20", @class = "RegisterBoxes" , placeholder = @Register.Name })<br>
+                    @Html.TextBoxFor(model => model.Username, new {@maxlength="20", @class = "RegisterBoxes", placeholder = @Register.Username })
                     @Html.ValidationMessageFor(model => model.Username)<br>
                     @Html.DropDownList("Gender", new List<SelectListItem> {
-                    new SelectListItem {Text = "Male", Value= "Male"},
-                    new SelectListItem {Text = "Female", Value= "Female"}
-                    }, "Select Gender")<br />
-                    @Html.TextBoxFor(model => model.Age, new { @maxlength="2", @class = "RegisterBoxes", placeholder = "Age" })<br>
-                    @Html.PasswordFor(model => model.Password, new { @maxlength="10", @class = "RegisterBoxes", placeholder = "Password" })
+                    new SelectListItem {Text = @Register.Male, Value= "Male"},
+                    new SelectListItem {Text = @Register.Female, Value= "Female"}
+                    }, @Register.Gender)<br />
+                    @Html.TextBoxFor(model => model.Age, new { @maxlength="2", @class = "RegisterBoxes", placeholder = @Register.Age })<br>
+                    @Html.PasswordFor(model => model.Password, new { @maxlength="10", @class = "RegisterBoxes", placeholder = @Register.Password })
                     @Html.ValidationMessageFor(model => model.Password)<br>
                     @Html.DropDownList("Visible", new List<SelectListItem> {
-                    new SelectListItem {Text = "Yes!", Value = "1"},
-                    new SelectListItem {Text = "No!", Value ="0"}
-                    }, "Visible for search?")
+                    new SelectListItem {Text = @Register.Yes, Value = "1"},
+                    new SelectListItem {Text = @Register.No, Value ="0"}
+                    }, @Register.Visible)
                     <br />
                     <br />
-                    <input type="submit" value="Register">
+                    <input type="submit" value=@Register.Reg>
                     @Html.Raw(TempData["Error"])
                 }
             </div>
