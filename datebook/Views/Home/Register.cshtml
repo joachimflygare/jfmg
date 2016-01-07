@@ -23,13 +23,13 @@
         <div id="divPicture">
             <img src="@Url.Content("~/pictures/couple.jpg")" id="couplepic" />
             <div id="IndexLoggin">
-                @Html.ActionLink("Log In", "LogIn", "Home", new { @id = "LogginLink" })
+                @Html.ActionLink(@Register.Login, "LogIn", "Home", new { @id = "LogginLink" })
             </div>
             <div id="IndexRegister">
-                @Html.ActionLink("Join now", "Register", "Home", new { @id = "RegisterLink" })
+                @Html.ActionLink(@Register.Join, "Register", "Home", new { @id = "RegisterLink" })
             </div>
             <div id="Register">
-                <h1>Join now!</h1>
+                <h1>@Register.Join</h1>
                 @using (Html.BeginForm())
                 {
                     <div id="langDiv">

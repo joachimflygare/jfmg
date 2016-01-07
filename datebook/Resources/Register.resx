@@ -126,6 +126,12 @@
   <data name="Gender" xml:space="preserve">
     <value>Gender</value>
   </data>
+  <data name="Join" xml:space="preserve">
+    <value>Join now</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Log in</value>
+  </data>
   <data name="Male" xml:space="preserve">
     <value>Male</value>
   </data>

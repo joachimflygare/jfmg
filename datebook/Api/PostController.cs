@@ -20,6 +20,7 @@ namespace datebook.Api
             var posterId = posterProfile.UserId;
             PostRepository.Post(model.Post, posterId, model.PostTo);
         }
+
         [HttpGet]
         public List<PostModel> getPost(int userId)
         {
