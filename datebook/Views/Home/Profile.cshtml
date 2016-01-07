@@ -90,6 +90,7 @@
         alert("Friend request sent to @Model.Username")
     }
 
+    @*Funktionen för att skicka posts till en profil*@
     function Post() {
         if (document.getElementById("taPost").value != "") {
             $.ajax({
@@ -110,6 +111,7 @@
         else { alert("Write something!"); }
     };
 
+    @*Funktionen för att hämta posts till en profil*@
     function getPost() {
         $.ajax({
             type: "GET",

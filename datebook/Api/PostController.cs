@@ -27,6 +27,7 @@ namespace datebook.Api
             var listOfPost = PostRepository.getPost(userId);
             var listOfPostModel = new List<PostModel>();
 
+            //Loopar igenom listOfPost och addar dom till listOfPostModel som returneras.
             foreach (var item in listOfPost)
             {
                 var postModel = new PostModel

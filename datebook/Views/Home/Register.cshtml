@@ -33,8 +33,9 @@
                 @using (Html.BeginForm())
                 {
                     <div id="langDiv">
-                        @Html.ActionLink("Svenska", "Language", "Home", new { chosenLanguage = "sv" }, null)
                         @Html.ActionLink("English", "Language", "Home", new { chosenLanguage = "en" }, null)
+                        @Html.ActionLink("Svenska", "Language", "Home", new { chosenLanguage = "sv" }, null)
+                      
                     </div>
                    <h3>@Html.ValidationSummary(true, "Registration failed, please re-check the fields")</h3>
                     @Html.TextBoxFor(model => model.Name, new {@maxlength="20", @class = "RegisterBoxes" , placeholder = @Register.Name })<br>
